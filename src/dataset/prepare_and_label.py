@@ -1,74 +1,95 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Tuple
+from pathlib import Path
+from typing import Dict, List
 
-import torch
-from torch.utils.data import DataLoader
-from torchvision import transforms
+import numpy as np
+import pandas as pd
+from tqdm import tqdm
 
-from medmnist import PneumoniaMNIST
+from src.dataset.data_loading import DataConfig, get_dataloaders
+from src.semantic.multimodal_recognition import RecognitionConfig, predict_labels
 
 
 @dataclass(frozen=True)
-class DataConfig:
-    data_root: str = "./data"
-    image_size: int = 224
-    batch_size: int = 32
-    num_workers: int = 2
-
-
-def build_base_transform(image_size: int) -> transforms.Compose:
-    return transforms.Compose(
-        [
-            transforms.Resize((image_size, image_size)),
-            transforms.Lambda(lambda img: img.convert("RGB")),  # PIL → RGB (for CLIP)
-            transforms.ToTensor(), # PIL → Tensor [0,1]
-        ]
-    )
-
-
-def load_split(split: str, cfg: DataConfig) -> PneumoniaMNIST:
-    if split not in {"train", "val", "test"}:
-        raise ValueError("split must be one of: 'train', 'val', 'test'")
-
-    return PneumoniaMNIST(
-        split=split,
-        root=cfg.data_root,
-        download=True,
-        transform=build_base_transform(cfg.image_size),
-    )
-
-
-def make_dataloader(dataset: PneumoniaMNIST, cfg: DataConfig, shuffle: bool) -> DataLoader:
-    return DataLoader(
-        dataset,
-        batch_size=cfg.batch_size,
-        shuffle=shuffle,
-        num_workers=cfg.num_workers,
-        pin_memory=torch.cuda.is_available(),
-        drop_last=False,
-    )
-
-
-def get_dataloaders(cfg: DataConfig) -> Dict[str, Tuple[PneumoniaMNIST, DataLoader]]:
+class PrepareConfig:
     """
-    Returns dict with keys: 'train', 'val', 'test'
-    Each value is (dataset, dataloader).
+    High-level config for Part 1:
+    where to write results and which splits to process.
     """
-    out: Dict[str, Tuple[PneumoniaMNIST, DataLoader]] = {}
-    for split in ["train", "val", "test"]:
-        ds = load_split(split, cfg)
-        dl = make_dataloader(ds, cfg, shuffle=(split == "train"))
-        out[split] = (ds, dl)
-    return out
+    results_dir: str = "./results"
+    split_order: tuple[str, ...] = ("train", "val", "test")
+
+
+def make_image_id(split: str, idx_in_split: int) -> str:
+    """Stable, reproducible ID per sample (split + index)."""
+    return f"pneumonia_{split}_{idx_in_split:06d}"
+
+
+def default_prompts() -> List[str]:
+    """
+    Candidate textual descriptions (prompts) used by the CLIP-like model.
+    """
+    return [
+        "a normal chest X-ray",
+        "a chest X-ray showing pneumonia",
+    ]
+
+
+def main() -> None:
+    # Part 1 orchestrates the pipeline: load data, call Part 2 (CLIP-like inference),
+    # and store a single CSV artifact with the required schema.
+    data_cfg = DataConfig()
+    prep_cfg = PrepareConfig()
+    rec_cfg = RecognitionConfig()
+
+    # Ensure output directory exists.
+    results_dir = Path(prep_cfg.results_dir)
+    results_dir.mkdir(parents=True, exist_ok=True)
+
+    prompts = default_prompts()
+    dls = get_dataloaders(data_cfg)
+
+    rows: List[Dict[str, object]] = []
+
+    for split in prep_cfg.split_order:
+        _, loader = dls[split]
+        idx_in_split = 0  # IDs are unique within each split
+
+        # Progress bar is useful once CLIP inference is enabled (can be slow on CPU).
+        pbar = tqdm(loader, desc=f"Labelling {split} split", unit="batch", leave=True)
+
+        for images, labels in pbar:
+            # MedMNIST labels arrive as shape [B, 1]. We flatten to [B] and convert to ints.
+            ground_truth = labels.view(-1).tolist()
+            ground_truth = [int(x) for x in ground_truth]
+
+            # Part 2: given a batch of images + prompts, return predicted labels and confidences.
+            auto_labels, conf_scores = predict_labels(images, prompts, rec_cfg)
+
+            # Store one row per image 
+            for i in range(images.shape[0]):
+                rows.append(
+                    {
+                        "image_id": make_image_id(split, idx_in_split),
+                        "auto_label": auto_labels[i],
+                        "ground_truth": ground_truth[i],
+                        "confidence_score": conf_scores[i],
+                        "split": split,  # keeps split explicit for later filtering/metrics
+                    }
+                )
+                idx_in_split += 1
+
+            # Light feedback while running.
+            pbar.set_postfix({"rows": len(rows)})
+
+    # Save CSV with the exact required columns/order (plus 'split' for traceability).
+    df = pd.DataFrame(rows, columns=["image_id", "auto_label", "ground_truth", "confidence_score", "split"])
+    out_path = results_dir / "labeled_dataset.csv"
+    df.to_csv(out_path, index=False)
+    print(f"Saved: {out_path} ({len(df)} rows)")
 
 
 if __name__ == "__main__":
-
-    cfg = DataConfig(data_root="./data", image_size=224, batch_size=8, num_workers=0)
-    dls = get_dataloaders(cfg)
-
-    images, labels = next(iter(dls["train"][1]))
-    print("images:", images.shape, images.dtype, images.min().item(), images.max().item())
-    print("labels:", labels.shape, labels[:8].view(-1).tolist())
+    main()
