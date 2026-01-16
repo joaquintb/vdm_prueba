@@ -9,7 +9,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from src.dataset.data_loading import DataConfig, get_dataloaders
-# from src.semantic.multimodal_recognition import RecognitionConfig, predict_labels
+from src.semantic.multimodal_recognition import RecognitionConfig, predict_labels
 
 
 @dataclass(frozen=True)
@@ -36,13 +36,17 @@ def default_prompts() -> List[str]:
         "a chest X-ray showing pneumonia",
     ]
 
+label_map = {
+    "a normal chest X-ray": "normal",
+    "a chest X-ray showing pneumonia": "pneumonia",
+}
 
 def main() -> None:
     # Part 1 orchestrates the pipeline: load data, call Part 2 (CLIP-like inference),
     # and store a single CSV artifact with the required schema.
     data_cfg = DataConfig()
     prep_cfg = PrepareConfig()
-    # rec_cfg = RecognitionConfig()
+    rec_cfg = RecognitionConfig()
 
     # Ensure output directory exists.
     results_dir = Path(prep_cfg.results_dir)
@@ -53,7 +57,7 @@ def main() -> None:
 
     rows: List[Dict[str, object]] = []
 
-    for split in prep_cfg.split_order:
+    for split in ["test"]:
         _, loader = dls[split]
         idx_in_split = 0  # IDs are unique within each split
 
@@ -66,16 +70,16 @@ def main() -> None:
             ground_truth = [int(x) for x in ground_truth]
 
             # Part 2: given a batch of images + prompts, return predicted labels and confidences.
-            # auto_labels, conf_scores = predict_labels(images, prompts, rec_cfg)
+            auto_labels, conf_scores = predict_labels(images, prompts, rec_cfg)
 
             # Store one row per image 
             for i in range(len(images)):
                 rows.append(
                     {
                         "image_id": make_image_id(split, idx_in_split),
-                        "auto_label": 0.0, # auto_labels[i],
+                        "auto_label": label_map[auto_labels[i]],
                         "ground_truth": ground_truth[i],
-                        "confidence_score": 0.0, #conf_scores[i],
+                        "confidence_score": conf_scores[i],
                         "split": split,  # keeps split explicit for later filtering/metrics
                     }
                 )
