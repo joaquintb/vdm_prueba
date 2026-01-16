@@ -1,48 +1,29 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List, Any
 
 import torch
 from torch.utils.data import DataLoader
-from torchvision import transforms
 
 from medmnist import PneumoniaMNIST
 
-from PIL import Image
 
 @dataclass(frozen=True)
 class DataConfig:
     """
-    Configuration for data loading and basic preprocessing.
+    Configuration for data loading.
+    Images are returned in raw form (no model-specific preprocessing).
     """
     data_root: str = "./data"
-    image_size: int = 224
-    batch_size: int = 8 # Temp (CPU)
-    num_workers: int = 2
-
-def pil_to_rgb(img: Image.Image) -> Image.Image:
-    return img.convert("RGB")
-
-def build_base_transform(image_size: int) -> transforms.Compose:
-    """
-    Basic preprocessing:
-    - resize to a fixed shape (consistent input for downstream models)
-    - convert to RGB (many pretrained models expect 3 channels)
-    - convert to float tensor in [0, 1]
-    """
-    return transforms.Compose(
-        [
-            transforms.Resize((image_size, image_size)),
-            transforms.Lambda(pil_to_rgb),  # 1 channel -> 3 channels
-            transforms.ToTensor(),  # float32 in [0, 1]
-        ]
-    )
+    batch_size: int = 8   # temp: default for CPU
+    num_workers: int = 0  # safer default on Windows
 
 
 def load_split(split: str, cfg: DataConfig) -> PneumoniaMNIST:
     """
-    Loads one dataset split (train/val/test) from PneumoniaMNIST.
+    Loads one dataset split (train / val / test) from PneumoniaMNIST.
+    Images are returned as raw objects (PIL or numpy, depending on MedMNIST).
     """
     if split not in {"train", "val", "test"}:
         raise ValueError("split must be one of: 'train', 'val', 'test'")
@@ -51,14 +32,28 @@ def load_split(split: str, cfg: DataConfig) -> PneumoniaMNIST:
         split=split,
         root=cfg.data_root,
         download=True,
-        transform=build_base_transform(cfg.image_size),
+        transform=None,  # raw images; model-specific preprocessing is done later
     )
+
+
+def collate_raw_images(batch: List[Tuple[Any, torch.Tensor]]):
+    """
+    Custom collate function:
+    - keeps images as a list (PIL / numpy)
+    - stacks labels into a tensor
+
+    This allows applying the model-specific preprocess inside multimodal_recognition.
+    """
+    images, labels = zip(*batch)
+    labels = [torch.as_tensor(y) for y in labels]  # numpy -> tensor
+    labels = torch.stack(labels)
+    return list(images), labels
 
 
 def make_dataloader(dataset: PneumoniaMNIST, cfg: DataConfig, shuffle: bool) -> DataLoader:
     """
-    Wraps the dataset into a DataLoader to enable efficient batch processing.
-    Shuffling enabled only for training.
+    Wraps the dataset into a DataLoader with a custom collate_fn so that
+    raw images can be batched safely.
     """
     return DataLoader(
         dataset,
@@ -67,12 +62,13 @@ def make_dataloader(dataset: PneumoniaMNIST, cfg: DataConfig, shuffle: bool) -> 
         num_workers=cfg.num_workers,
         pin_memory=torch.cuda.is_available(),
         drop_last=False,
+        collate_fn=collate_raw_images,
     )
 
 
 def get_dataloaders(cfg: DataConfig) -> Dict[str, Tuple[PneumoniaMNIST, DataLoader]]:
     """
-    Convenience helper that returns (dataset, dataloader) for each split.
+    Returns (dataset, dataloader) for each split.
     """
     out: Dict[str, Tuple[PneumoniaMNIST, DataLoader]] = {}
     for split in ["train", "val", "test"]:
