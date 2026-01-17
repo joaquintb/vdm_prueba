@@ -1,0 +1,42 @@
+{
+  "test": {
+    "n": 50,
+    "accuracy": 0.66,
+    "confusion_matrix": {
+      "tn": 0,
+      "fp": 17,
+      "fn": 0,
+      "tp": 33
+    }
+  },
+  "train": {
+    "n": 50,
+    "accuracy": 0.82,
+    "confusion_matrix": {
+      "tn": 0,
+      "fp": 9,
+      "fn": 0,
+      "tp": 41
+    }
+  },
+  "val": {
+    "n": 50,
+    "accuracy": 0.68,
+    "confusion_matrix": {
+      "tn": 0,
+      "fp": 16,
+      "fn": 0,
+      "tp": 34
+    }
+  },
+  "overall": {
+    "n": 150,
+    "accuracy": 0.72,
+    "confusion_matrix": {
+      "tn": 0,
+      "fp": 42,
+      "fn": 0,
+      "tp": 108
+    }
+  }
+}

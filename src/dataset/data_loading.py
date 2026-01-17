@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Dict, Tuple, List, Any
 
 import torch
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Subset
 
 from medmnist import PneumoniaMNIST
 
@@ -28,12 +28,15 @@ def load_split(split: str, cfg: DataConfig) -> PneumoniaMNIST:
     if split not in {"train", "val", "test"}:
         raise ValueError("split must be one of: 'train', 'val', 'test'")
 
-    return PneumoniaMNIST(
+    ds = PneumoniaMNIST(
         split=split,
         root=cfg.data_root,
         download=True,
-        transform=None,  # raw images; model-specific preprocessing is done later
+        transform=None,
     )
+
+    # Take only the first x samples (for testing)
+    return Subset(ds, range(50))
 
 
 def collate_raw_images(batch: List[Tuple[Any, torch.Tensor]]):
@@ -73,6 +76,6 @@ def get_dataloaders(cfg: DataConfig) -> Dict[str, Tuple[PneumoniaMNIST, DataLoad
     out: Dict[str, Tuple[PneumoniaMNIST, DataLoader]] = {}
     for split in ["train", "val", "test"]:
         ds = load_split(split, cfg)
-        dl = make_dataloader(ds, cfg, shuffle=(split == "train"))
+        dl = make_dataloader(ds, cfg, shuffle=False) # Shuffling not used for any, we are labelling
         out[split] = (ds, dl)
     return out

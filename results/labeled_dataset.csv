@@ -1,625 +1,151 @@
-image_id,auto_label,ground_truth,confidence_score,split
-pneumonia_test_000000,a normal chest X-ray,1,0.70754325,test
-pneumonia_test_000001,a normal chest X-ray,0,0.9955088,test
-pneumonia_test_000002,a normal chest X-ray,1,0.9970686,test
-pneumonia_test_000003,a normal chest X-ray,0,0.9986773,test
-pneumonia_test_000004,a chest X-ray showing pneumonia,1,0.86229277,test
-pneumonia_test_000005,a chest X-ray showing pneumonia,1,0.8996885,test
-pneumonia_test_000006,a chest X-ray showing pneumonia,1,0.9320773,test
-pneumonia_test_000007,a chest X-ray showing pneumonia,1,0.82267267,test
-pneumonia_test_000008,a normal chest X-ray,1,0.98058033,test
-pneumonia_test_000009,a normal chest X-ray,0,0.9941491,test
-pneumonia_test_000010,a normal chest X-ray,1,0.6968342,test
-pneumonia_test_000011,a chest X-ray showing pneumonia,1,0.9892425,test
-pneumonia_test_000012,a normal chest X-ray,1,0.98805493,test
-pneumonia_test_000013,a chest X-ray showing pneumonia,1,0.88313407,test
-pneumonia_test_000014,a normal chest X-ray,1,0.9749646,test
-pneumonia_test_000015,a chest X-ray showing pneumonia,1,0.9163117,test
-pneumonia_test_000016,a normal chest X-ray,1,0.7231896,test
-pneumonia_test_000017,a normal chest X-ray,1,0.9971002,test
-pneumonia_test_000018,a chest X-ray showing pneumonia,1,0.94163424,test
-pneumonia_test_000019,a normal chest X-ray,0,0.9836969,test
-pneumonia_test_000020,a normal chest X-ray,0,0.99592894,test
-pneumonia_test_000021,a normal chest X-ray,1,0.77348447,test
-pneumonia_test_000022,a normal chest X-ray,1,0.9981981,test
-pneumonia_test_000023,a normal chest X-ray,1,0.94832546,test
-pneumonia_test_000024,a normal chest X-ray,1,0.9688224,test
-pneumonia_test_000025,a normal chest X-ray,0,0.99748945,test
-pneumonia_test_000026,a chest X-ray showing pneumonia,1,0.74308276,test
-pneumonia_test_000027,a normal chest X-ray,0,0.8140311,test
-pneumonia_test_000028,a normal chest X-ray,0,0.9702041,test
-pneumonia_test_000029,a chest X-ray showing pneumonia,1,0.9610722,test
-pneumonia_test_000030,a normal chest X-ray,0,0.999446,test
-pneumonia_test_000031,a normal chest X-ray,1,0.7857305,test
-pneumonia_test_000032,a normal chest X-ray,1,0.65013677,test
-pneumonia_test_000033,a normal chest X-ray,1,0.8921477,test
-pneumonia_test_000034,a chest X-ray showing pneumonia,1,0.6488167,test
-pneumonia_test_000035,a normal chest X-ray,1,0.9077128,test
-pneumonia_test_000036,a normal chest X-ray,0,0.99671435,test
-pneumonia_test_000037,a chest X-ray showing pneumonia,1,0.58703804,test
-pneumonia_test_000038,a normal chest X-ray,0,0.9571455,test
-pneumonia_test_000039,a normal chest X-ray,0,0.99883944,test
-pneumonia_test_000040,a normal chest X-ray,1,0.9960121,test
-pneumonia_test_000041,a normal chest X-ray,0,0.9996377,test
-pneumonia_test_000042,a normal chest X-ray,0,0.895465,test
-pneumonia_test_000043,a normal chest X-ray,0,0.99987507,test
-pneumonia_test_000044,a normal chest X-ray,0,0.9981692,test
-pneumonia_test_000045,a normal chest X-ray,1,0.9854167,test
-pneumonia_test_000046,a normal chest X-ray,0,0.99863225,test
-pneumonia_test_000047,a normal chest X-ray,1,0.9989561,test
-pneumonia_test_000048,a normal chest X-ray,1,0.98981863,test
-pneumonia_test_000049,a normal chest X-ray,1,0.87097055,test
-pneumonia_test_000050,a normal chest X-ray,0,0.988288,test
-pneumonia_test_000051,a normal chest X-ray,1,0.8365118,test
-pneumonia_test_000052,a normal chest X-ray,0,0.99536246,test
-pneumonia_test_000053,a chest X-ray showing pneumonia,1,0.98858005,test
-pneumonia_test_000054,a normal chest X-ray,0,0.99082714,test
-pneumonia_test_000055,a normal chest X-ray,0,0.9795003,test
-pneumonia_test_000056,a chest X-ray showing pneumonia,1,0.88118184,test
-pneumonia_test_000057,a normal chest X-ray,0,0.99697053,test
-pneumonia_test_000058,a normal chest X-ray,0,0.9984862,test
-pneumonia_test_000059,a normal chest X-ray,1,0.9991787,test
-pneumonia_test_000060,a normal chest X-ray,0,0.9980094,test
-pneumonia_test_000061,a normal chest X-ray,0,0.99901175,test
-pneumonia_test_000062,a normal chest X-ray,0,0.99997437,test
-pneumonia_test_000063,a normal chest X-ray,1,0.963712,test
-pneumonia_test_000064,a chest X-ray showing pneumonia,1,0.6494458,test
-pneumonia_test_000065,a chest X-ray showing pneumonia,1,0.8725583,test
-pneumonia_test_000066,a normal chest X-ray,0,0.99514884,test
-pneumonia_test_000067,a normal chest X-ray,0,0.9557306,test
-pneumonia_test_000068,a normal chest X-ray,0,0.9963804,test
-pneumonia_test_000069,a normal chest X-ray,0,0.91149974,test
-pneumonia_test_000070,a chest X-ray showing pneumonia,1,0.930339,test
-pneumonia_test_000071,a normal chest X-ray,0,0.9978108,test
-pneumonia_test_000072,a normal chest X-ray,0,0.99754864,test
-pneumonia_test_000073,a chest X-ray showing pneumonia,1,0.75501025,test
-pneumonia_test_000074,a normal chest X-ray,1,0.86337817,test
-pneumonia_test_000075,a normal chest X-ray,1,0.97260225,test
-pneumonia_test_000076,a chest X-ray showing pneumonia,1,0.6451749,test
-pneumonia_test_000077,a normal chest X-ray,0,0.9991093,test
-pneumonia_test_000078,a normal chest X-ray,0,0.9997031,test
-pneumonia_test_000079,a normal chest X-ray,1,0.9996772,test
-pneumonia_test_000080,a chest X-ray showing pneumonia,1,0.8745531,test
-pneumonia_test_000081,a normal chest X-ray,1,0.94746846,test
-pneumonia_test_000082,a chest X-ray showing pneumonia,1,0.69131017,test
-pneumonia_test_000083,a normal chest X-ray,0,0.99990547,test
-pneumonia_test_000084,a normal chest X-ray,0,0.9474238,test
-pneumonia_test_000085,a normal chest X-ray,0,0.9702749,test
-pneumonia_test_000086,a normal chest X-ray,0,0.99858284,test
-pneumonia_test_000087,a normal chest X-ray,1,0.99581295,test
-pneumonia_test_000088,a normal chest X-ray,1,0.97979456,test
-pneumonia_test_000089,a normal chest X-ray,0,0.9927961,test
-pneumonia_test_000090,a normal chest X-ray,1,0.5530777,test
-pneumonia_test_000091,a normal chest X-ray,0,0.9830949,test
-pneumonia_test_000092,a normal chest X-ray,1,0.7639553,test
-pneumonia_test_000093,a normal chest X-ray,0,0.9998878,test
-pneumonia_test_000094,a normal chest X-ray,1,0.8652721,test
-pneumonia_test_000095,a chest X-ray showing pneumonia,1,0.8884634,test
-pneumonia_test_000096,a normal chest X-ray,1,0.9809007,test
-pneumonia_test_000097,a normal chest X-ray,0,0.9967283,test
-pneumonia_test_000098,a normal chest X-ray,0,0.9949025,test
-pneumonia_test_000099,a normal chest X-ray,1,0.81863654,test
-pneumonia_test_000100,a chest X-ray showing pneumonia,1,0.975008,test
-pneumonia_test_000101,a normal chest X-ray,1,0.55615664,test
-pneumonia_test_000102,a chest X-ray showing pneumonia,1,0.77764535,test
-pneumonia_test_000103,a normal chest X-ray,0,0.97348285,test
-pneumonia_test_000104,a chest X-ray showing pneumonia,1,0.9908347,test
-pneumonia_test_000105,a normal chest X-ray,1,0.79160404,test
-pneumonia_test_000106,a normal chest X-ray,0,0.99945265,test
-pneumonia_test_000107,a normal chest X-ray,0,0.56501096,test
-pneumonia_test_000108,a normal chest X-ray,1,0.99955684,test
-pneumonia_test_000109,a normal chest X-ray,0,0.99921095,test
-pneumonia_test_000110,a normal chest X-ray,1,0.86840194,test
-pneumonia_test_000111,a chest X-ray showing pneumonia,1,0.75231546,test
-pneumonia_test_000112,a normal chest X-ray,0,0.9990109,test
-pneumonia_test_000113,a normal chest X-ray,1,0.83757514,test
-pneumonia_test_000114,a normal chest X-ray,0,0.9985576,test
-pneumonia_test_000115,a normal chest X-ray,1,0.722803,test
-pneumonia_test_000116,a normal chest X-ray,1,0.99712795,test
-pneumonia_test_000117,a normal chest X-ray,1,0.50504094,test
-pneumonia_test_000118,a normal chest X-ray,0,0.99996233,test
-pneumonia_test_000119,a normal chest X-ray,0,0.9995578,test
-pneumonia_test_000120,a chest X-ray showing pneumonia,1,0.7415812,test
-pneumonia_test_000121,a chest X-ray showing pneumonia,1,0.9155324,test
-pneumonia_test_000122,a normal chest X-ray,1,0.9282802,test
-pneumonia_test_000123,a normal chest X-ray,0,0.99500966,test
-pneumonia_test_000124,a normal chest X-ray,1,0.89825034,test
-pneumonia_test_000125,a normal chest X-ray,0,0.9994004,test
-pneumonia_test_000126,a normal chest X-ray,0,0.9999318,test
-pneumonia_test_000127,a normal chest X-ray,1,0.64740384,test
-pneumonia_test_000128,a normal chest X-ray,0,0.9877573,test
-pneumonia_test_000129,a normal chest X-ray,1,0.97024655,test
-pneumonia_test_000130,a normal chest X-ray,1,0.7404714,test
-pneumonia_test_000131,a normal chest X-ray,0,0.9924499,test
-pneumonia_test_000132,a chest X-ray showing pneumonia,1,0.7602817,test
-pneumonia_test_000133,a normal chest X-ray,0,0.9967116,test
-pneumonia_test_000134,a chest X-ray showing pneumonia,1,0.5901067,test
-pneumonia_test_000135,a normal chest X-ray,1,0.99979883,test
-pneumonia_test_000136,a normal chest X-ray,0,0.99126726,test
-pneumonia_test_000137,a normal chest X-ray,1,0.63929284,test
-pneumonia_test_000138,a normal chest X-ray,1,0.894885,test
-pneumonia_test_000139,a normal chest X-ray,0,0.9934784,test
-pneumonia_test_000140,a normal chest X-ray,1,0.9703371,test
-pneumonia_test_000141,a normal chest X-ray,1,0.984749,test
-pneumonia_test_000142,a normal chest X-ray,0,0.98030794,test
-pneumonia_test_000143,a normal chest X-ray,0,0.9574905,test
-pneumonia_test_000144,a normal chest X-ray,0,0.99907243,test
-pneumonia_test_000145,a normal chest X-ray,0,0.9307113,test
-pneumonia_test_000146,a normal chest X-ray,0,0.9976859,test
-pneumonia_test_000147,a normal chest X-ray,0,0.9961486,test
-pneumonia_test_000148,a normal chest X-ray,1,0.99520016,test
-pneumonia_test_000149,a normal chest X-ray,1,0.97675896,test
-pneumonia_test_000150,a normal chest X-ray,0,0.99739873,test
-pneumonia_test_000151,a normal chest X-ray,1,0.9947277,test
-pneumonia_test_000152,a normal chest X-ray,0,0.9950088,test
-pneumonia_test_000153,a chest X-ray showing pneumonia,1,0.92351985,test
-pneumonia_test_000154,a chest X-ray showing pneumonia,1,0.88449293,test
-pneumonia_test_000155,a chest X-ray showing pneumonia,1,0.67598605,test
-pneumonia_test_000156,a chest X-ray showing pneumonia,1,0.8620734,test
-pneumonia_test_000157,a normal chest X-ray,1,0.99886787,test
-pneumonia_test_000158,a normal chest X-ray,1,0.98338866,test
-pneumonia_test_000159,a normal chest X-ray,1,0.9057077,test
-pneumonia_test_000160,a normal chest X-ray,0,0.9987118,test
-pneumonia_test_000161,a normal chest X-ray,0,0.99835676,test
-pneumonia_test_000162,a chest X-ray showing pneumonia,1,0.7515043,test
-pneumonia_test_000163,a chest X-ray showing pneumonia,1,0.95838743,test
-pneumonia_test_000164,a normal chest X-ray,0,0.9995415,test
-pneumonia_test_000165,a normal chest X-ray,0,0.96955127,test
-pneumonia_test_000166,a normal chest X-ray,0,0.98089063,test
-pneumonia_test_000167,a chest X-ray showing pneumonia,1,0.68225706,test
-pneumonia_test_000168,a normal chest X-ray,1,0.9758507,test
-pneumonia_test_000169,a normal chest X-ray,1,0.85956156,test
-pneumonia_test_000170,a chest X-ray showing pneumonia,1,0.6607515,test
-pneumonia_test_000171,a normal chest X-ray,1,0.70761395,test
-pneumonia_test_000172,a normal chest X-ray,1,0.808429,test
-pneumonia_test_000173,a chest X-ray showing pneumonia,1,0.9697742,test
-pneumonia_test_000174,a normal chest X-ray,0,0.99222344,test
-pneumonia_test_000175,a normal chest X-ray,1,0.8029995,test
-pneumonia_test_000176,a normal chest X-ray,1,0.990967,test
-pneumonia_test_000177,a normal chest X-ray,0,0.99779177,test
-pneumonia_test_000178,a normal chest X-ray,1,0.8973768,test
-pneumonia_test_000179,a normal chest X-ray,0,0.9732189,test
-pneumonia_test_000180,a normal chest X-ray,1,0.75431174,test
-pneumonia_test_000181,a normal chest X-ray,1,0.99655837,test
-pneumonia_test_000182,a normal chest X-ray,1,0.98558193,test
-pneumonia_test_000183,a normal chest X-ray,1,0.54170054,test
-pneumonia_test_000184,a chest X-ray showing pneumonia,1,0.92673665,test
-pneumonia_test_000185,a normal chest X-ray,0,0.9862752,test
-pneumonia_test_000186,a normal chest X-ray,0,0.9826857,test
-pneumonia_test_000187,a normal chest X-ray,0,0.99240255,test
-pneumonia_test_000188,a normal chest X-ray,1,0.993958,test
-pneumonia_test_000189,a normal chest X-ray,0,0.9998323,test
-pneumonia_test_000190,a normal chest X-ray,1,0.9234102,test
-pneumonia_test_000191,a normal chest X-ray,0,0.9527331,test
-pneumonia_test_000192,a normal chest X-ray,1,0.9964175,test
-pneumonia_test_000193,a chest X-ray showing pneumonia,1,0.62698466,test
-pneumonia_test_000194,a normal chest X-ray,0,0.99991786,test
-pneumonia_test_000195,a normal chest X-ray,0,0.9995827,test
-pneumonia_test_000196,a chest X-ray showing pneumonia,1,0.6874542,test
-pneumonia_test_000197,a normal chest X-ray,1,0.57348156,test
-pneumonia_test_000198,a chest X-ray showing pneumonia,1,0.6645768,test
-pneumonia_test_000199,a normal chest X-ray,0,0.99870455,test
-pneumonia_test_000200,a normal chest X-ray,1,0.99296266,test
-pneumonia_test_000201,a chest X-ray showing pneumonia,1,0.6114744,test
-pneumonia_test_000202,a normal chest X-ray,1,0.7876321,test
-pneumonia_test_000203,a normal chest X-ray,1,0.96260345,test
-pneumonia_test_000204,a normal chest X-ray,1,0.97319615,test
-pneumonia_test_000205,a normal chest X-ray,1,0.99646723,test
-pneumonia_test_000206,a normal chest X-ray,1,0.9988061,test
-pneumonia_test_000207,a chest X-ray showing pneumonia,1,0.8411634,test
-pneumonia_test_000208,a normal chest X-ray,0,0.9905094,test
-pneumonia_test_000209,a chest X-ray showing pneumonia,1,0.5588105,test
-pneumonia_test_000210,a normal chest X-ray,0,0.9999106,test
-pneumonia_test_000211,a normal chest X-ray,1,0.9143898,test
-pneumonia_test_000212,a normal chest X-ray,1,0.5160572,test
-pneumonia_test_000213,a chest X-ray showing pneumonia,1,0.57320815,test
-pneumonia_test_000214,a normal chest X-ray,1,0.98779416,test
-pneumonia_test_000215,a chest X-ray showing pneumonia,1,0.9316323,test
-pneumonia_test_000216,a normal chest X-ray,1,0.9937703,test
-pneumonia_test_000217,a normal chest X-ray,0,0.95427567,test
-pneumonia_test_000218,a normal chest X-ray,1,0.999209,test
-pneumonia_test_000219,a normal chest X-ray,1,0.9091568,test
-pneumonia_test_000220,a normal chest X-ray,0,0.99980897,test
-pneumonia_test_000221,a normal chest X-ray,0,0.993302,test
-pneumonia_test_000222,a chest X-ray showing pneumonia,0,0.8958697,test
-pneumonia_test_000223,a normal chest X-ray,1,0.8402974,test
-pneumonia_test_000224,a chest X-ray showing pneumonia,0,0.57767034,test
-pneumonia_test_000225,a chest X-ray showing pneumonia,1,0.8566021,test
-pneumonia_test_000226,a normal chest X-ray,0,0.9702407,test
-pneumonia_test_000227,a chest X-ray showing pneumonia,1,0.8701215,test
-pneumonia_test_000228,a normal chest X-ray,1,0.97504956,test
-pneumonia_test_000229,a normal chest X-ray,0,0.9977691,test
-pneumonia_test_000230,a normal chest X-ray,1,0.99959296,test
-pneumonia_test_000231,a normal chest X-ray,0,0.73246443,test
-pneumonia_test_000232,a normal chest X-ray,0,0.6346066,test
-pneumonia_test_000233,a normal chest X-ray,1,0.96677375,test
-pneumonia_test_000234,a normal chest X-ray,0,0.99979395,test
-pneumonia_test_000235,a chest X-ray showing pneumonia,1,0.7882717,test
-pneumonia_test_000236,a normal chest X-ray,0,0.9929404,test
-pneumonia_test_000237,a normal chest X-ray,0,0.9991001,test
-pneumonia_test_000238,a normal chest X-ray,1,0.752115,test
-pneumonia_test_000239,a normal chest X-ray,0,0.99292254,test
-pneumonia_test_000240,a chest X-ray showing pneumonia,0,0.69243157,test
-pneumonia_test_000241,a chest X-ray showing pneumonia,1,0.70949703,test
-pneumonia_test_000242,a normal chest X-ray,1,0.5007334,test
-pneumonia_test_000243,a normal chest X-ray,0,0.98712224,test
-pneumonia_test_000244,a normal chest X-ray,1,0.895604,test
-pneumonia_test_000245,a chest X-ray showing pneumonia,1,0.97442687,test
-pneumonia_test_000246,a normal chest X-ray,1,0.9741442,test
-pneumonia_test_000247,a normal chest X-ray,1,0.7455685,test
-pneumonia_test_000248,a normal chest X-ray,1,0.9998523,test
-pneumonia_test_000249,a normal chest X-ray,1,0.98943955,test
-pneumonia_test_000250,a normal chest X-ray,1,0.84746295,test
-pneumonia_test_000251,a normal chest X-ray,0,0.99793005,test
-pneumonia_test_000252,a chest X-ray showing pneumonia,1,0.808736,test
-pneumonia_test_000253,a chest X-ray showing pneumonia,1,0.9620733,test
-pneumonia_test_000254,a normal chest X-ray,1,0.9936453,test
-pneumonia_test_000255,a normal chest X-ray,0,0.9994843,test
-pneumonia_test_000256,a chest X-ray showing pneumonia,1,0.9233015,test
-pneumonia_test_000257,a normal chest X-ray,1,0.58518726,test
-pneumonia_test_000258,a normal chest X-ray,0,0.71272725,test
-pneumonia_test_000259,a normal chest X-ray,0,0.99831474,test
-pneumonia_test_000260,a normal chest X-ray,1,0.99587256,test
-pneumonia_test_000261,a normal chest X-ray,1,0.9719714,test
-pneumonia_test_000262,a normal chest X-ray,1,0.9945522,test
-pneumonia_test_000263,a chest X-ray showing pneumonia,1,0.65554017,test
-pneumonia_test_000264,a normal chest X-ray,0,0.9999404,test
-pneumonia_test_000265,a chest X-ray showing pneumonia,1,0.9759591,test
-pneumonia_test_000266,a normal chest X-ray,0,0.9533883,test
-pneumonia_test_000267,a normal chest X-ray,0,0.99915576,test
-pneumonia_test_000268,a normal chest X-ray,1,0.856929,test
-pneumonia_test_000269,a normal chest X-ray,1,0.98983896,test
-pneumonia_test_000270,a normal chest X-ray,1,0.8972104,test
-pneumonia_test_000271,a normal chest X-ray,1,0.70884204,test
-pneumonia_test_000272,a chest X-ray showing pneumonia,1,0.95717716,test
-pneumonia_test_000273,a normal chest X-ray,0,0.99491125,test
-pneumonia_test_000274,a normal chest X-ray,1,0.82485527,test
-pneumonia_test_000275,a normal chest X-ray,1,0.8032292,test
-pneumonia_test_000276,a chest X-ray showing pneumonia,1,0.88733774,test
-pneumonia_test_000277,a chest X-ray showing pneumonia,1,0.98751175,test
-pneumonia_test_000278,a normal chest X-ray,0,0.9961557,test
-pneumonia_test_000279,a chest X-ray showing pneumonia,1,0.5171813,test
-pneumonia_test_000280,a normal chest X-ray,0,0.9961898,test
-pneumonia_test_000281,a normal chest X-ray,0,0.9995097,test
-pneumonia_test_000282,a normal chest X-ray,0,0.99618787,test
-pneumonia_test_000283,a chest X-ray showing pneumonia,1,0.5228513,test
-pneumonia_test_000284,a normal chest X-ray,1,0.88493997,test
-pneumonia_test_000285,a normal chest X-ray,0,0.9984244,test
-pneumonia_test_000286,a chest X-ray showing pneumonia,1,0.7849231,test
-pneumonia_test_000287,a chest X-ray showing pneumonia,1,0.90355545,test
-pneumonia_test_000288,a normal chest X-ray,1,0.9972632,test
-pneumonia_test_000289,a normal chest X-ray,1,0.95128465,test
-pneumonia_test_000290,a normal chest X-ray,0,0.99962294,test
-pneumonia_test_000291,a normal chest X-ray,1,0.80845857,test
-pneumonia_test_000292,a normal chest X-ray,0,0.9911738,test
-pneumonia_test_000293,a normal chest X-ray,0,0.99987817,test
-pneumonia_test_000294,a chest X-ray showing pneumonia,1,0.6005334,test
-pneumonia_test_000295,a normal chest X-ray,1,0.95155823,test
-pneumonia_test_000296,a chest X-ray showing pneumonia,1,0.9342475,test
-pneumonia_test_000297,a normal chest X-ray,0,0.9938983,test
-pneumonia_test_000298,a normal chest X-ray,1,0.87861323,test
-pneumonia_test_000299,a chest X-ray showing pneumonia,1,0.79201746,test
-pneumonia_test_000300,a normal chest X-ray,1,0.60168225,test
-pneumonia_test_000301,a normal chest X-ray,1,0.98192143,test
-pneumonia_test_000302,a normal chest X-ray,1,0.7928307,test
-pneumonia_test_000303,a normal chest X-ray,1,0.96658325,test
-pneumonia_test_000304,a normal chest X-ray,1,0.99678975,test
-pneumonia_test_000305,a chest X-ray showing pneumonia,1,0.52763313,test
-pneumonia_test_000306,a chest X-ray showing pneumonia,1,0.9682589,test
-pneumonia_test_000307,a normal chest X-ray,0,0.7888979,test
-pneumonia_test_000308,a chest X-ray showing pneumonia,1,0.9921004,test
-pneumonia_test_000309,a normal chest X-ray,0,0.952671,test
-pneumonia_test_000310,a normal chest X-ray,0,0.9986181,test
-pneumonia_test_000311,a chest X-ray showing pneumonia,1,0.66075325,test
-pneumonia_test_000312,a normal chest X-ray,0,0.936697,test
-pneumonia_test_000313,a normal chest X-ray,0,0.99971694,test
-pneumonia_test_000314,a normal chest X-ray,1,0.9745154,test
-pneumonia_test_000315,a normal chest X-ray,1,0.5588509,test
-pneumonia_test_000316,a normal chest X-ray,1,0.9268063,test
-pneumonia_test_000317,a chest X-ray showing pneumonia,0,0.82326514,test
-pneumonia_test_000318,a normal chest X-ray,1,0.9532026,test
-pneumonia_test_000319,a normal chest X-ray,0,0.988605,test
-pneumonia_test_000320,a normal chest X-ray,1,0.96743816,test
-pneumonia_test_000321,a chest X-ray showing pneumonia,1,0.85239637,test
-pneumonia_test_000322,a normal chest X-ray,1,0.59259295,test
-pneumonia_test_000323,a normal chest X-ray,0,0.98742837,test
-pneumonia_test_000324,a normal chest X-ray,1,0.97982633,test
-pneumonia_test_000325,a normal chest X-ray,1,0.90707904,test
-pneumonia_test_000326,a normal chest X-ray,1,0.9968869,test
-pneumonia_test_000327,a normal chest X-ray,1,0.93005615,test
-pneumonia_test_000328,a normal chest X-ray,1,0.5252252,test
-pneumonia_test_000329,a normal chest X-ray,1,0.88592595,test
-pneumonia_test_000330,a normal chest X-ray,0,0.99381506,test
-pneumonia_test_000331,a normal chest X-ray,1,0.73269236,test
-pneumonia_test_000332,a normal chest X-ray,0,0.9982753,test
-pneumonia_test_000333,a normal chest X-ray,1,0.5012808,test
-pneumonia_test_000334,a chest X-ray showing pneumonia,1,0.8614349,test
-pneumonia_test_000335,a normal chest X-ray,1,0.5428505,test
-pneumonia_test_000336,a chest X-ray showing pneumonia,1,0.66677487,test
-pneumonia_test_000337,a chest X-ray showing pneumonia,1,0.5958343,test
-pneumonia_test_000338,a normal chest X-ray,0,0.99843794,test
-pneumonia_test_000339,a normal chest X-ray,0,0.98486704,test
-pneumonia_test_000340,a normal chest X-ray,1,0.9952075,test
-pneumonia_test_000341,a normal chest X-ray,1,0.9772928,test
-pneumonia_test_000342,a normal chest X-ray,1,0.95443106,test
-pneumonia_test_000343,a normal chest X-ray,1,0.9954756,test
-pneumonia_test_000344,a normal chest X-ray,1,0.98998266,test
-pneumonia_test_000345,a normal chest X-ray,0,0.99845695,test
-pneumonia_test_000346,a chest X-ray showing pneumonia,1,0.9601087,test
-pneumonia_test_000347,a normal chest X-ray,1,0.961063,test
-pneumonia_test_000348,a chest X-ray showing pneumonia,1,0.97209847,test
-pneumonia_test_000349,a normal chest X-ray,0,0.9045392,test
-pneumonia_test_000350,a normal chest X-ray,0,0.9964072,test
-pneumonia_test_000351,a normal chest X-ray,1,0.9368028,test
-pneumonia_test_000352,a chest X-ray showing pneumonia,1,0.8881893,test
-pneumonia_test_000353,a normal chest X-ray,0,0.99455357,test
-pneumonia_test_000354,a normal chest X-ray,0,0.9910286,test
-pneumonia_test_000355,a chest X-ray showing pneumonia,1,0.7279203,test
-pneumonia_test_000356,a normal chest X-ray,0,0.9139523,test
-pneumonia_test_000357,a normal chest X-ray,0,0.9878902,test
-pneumonia_test_000358,a chest X-ray showing pneumonia,1,0.7751238,test
-pneumonia_test_000359,a normal chest X-ray,1,0.8688755,test
-pneumonia_test_000360,a normal chest X-ray,1,0.99900573,test
-pneumonia_test_000361,a normal chest X-ray,1,0.95600235,test
-pneumonia_test_000362,a chest X-ray showing pneumonia,1,0.66349095,test
-pneumonia_test_000363,a normal chest X-ray,1,0.9436538,test
-pneumonia_test_000364,a normal chest X-ray,1,0.7066959,test
-pneumonia_test_000365,a normal chest X-ray,0,0.9951698,test
-pneumonia_test_000366,a normal chest X-ray,1,0.89568204,test
-pneumonia_test_000367,a normal chest X-ray,0,0.9833225,test
-pneumonia_test_000368,a normal chest X-ray,0,0.99946934,test
-pneumonia_test_000369,a normal chest X-ray,1,0.99891627,test
-pneumonia_test_000370,a normal chest X-ray,0,0.9959841,test
-pneumonia_test_000371,a chest X-ray showing pneumonia,1,0.65300417,test
-pneumonia_test_000372,a normal chest X-ray,0,0.97999245,test
-pneumonia_test_000373,a chest X-ray showing pneumonia,1,0.75351727,test
-pneumonia_test_000374,a normal chest X-ray,1,0.6534155,test
-pneumonia_test_000375,a normal chest X-ray,0,0.9999027,test
-pneumonia_test_000376,a normal chest X-ray,0,0.9999026,test
-pneumonia_test_000377,a normal chest X-ray,0,0.9999901,test
-pneumonia_test_000378,a normal chest X-ray,0,0.9960257,test
-pneumonia_test_000379,a chest X-ray showing pneumonia,1,0.9865637,test
-pneumonia_test_000380,a normal chest X-ray,0,0.99975926,test
-pneumonia_test_000381,a chest X-ray showing pneumonia,1,0.53872633,test
-pneumonia_test_000382,a normal chest X-ray,0,0.954962,test
-pneumonia_test_000383,a chest X-ray showing pneumonia,1,0.7965108,test
-pneumonia_test_000384,a normal chest X-ray,0,0.70151305,test
-pneumonia_test_000385,a normal chest X-ray,0,0.9853816,test
-pneumonia_test_000386,a normal chest X-ray,0,0.9998203,test
-pneumonia_test_000387,a chest X-ray showing pneumonia,1,0.98899287,test
-pneumonia_test_000388,a chest X-ray showing pneumonia,1,0.88044816,test
-pneumonia_test_000389,a normal chest X-ray,1,0.98833615,test
-pneumonia_test_000390,a normal chest X-ray,0,0.92718047,test
-pneumonia_test_000391,a normal chest X-ray,0,0.9992957,test
-pneumonia_test_000392,a normal chest X-ray,0,0.9998908,test
-pneumonia_test_000393,a normal chest X-ray,1,0.9987417,test
-pneumonia_test_000394,a normal chest X-ray,0,0.99625236,test
-pneumonia_test_000395,a normal chest X-ray,1,0.9908811,test
-pneumonia_test_000396,a normal chest X-ray,0,0.9999708,test
-pneumonia_test_000397,a normal chest X-ray,1,0.95167977,test
-pneumonia_test_000398,a normal chest X-ray,0,0.9791019,test
-pneumonia_test_000399,a chest X-ray showing pneumonia,1,0.94544667,test
-pneumonia_test_000400,a normal chest X-ray,1,0.984868,test
-pneumonia_test_000401,a normal chest X-ray,1,0.7928313,test
-pneumonia_test_000402,a normal chest X-ray,1,0.9295624,test
-pneumonia_test_000403,a normal chest X-ray,1,0.98560774,test
-pneumonia_test_000404,a normal chest X-ray,1,0.5272309,test
-pneumonia_test_000405,a normal chest X-ray,1,0.999464,test
-pneumonia_test_000406,a chest X-ray showing pneumonia,1,0.7766498,test
-pneumonia_test_000407,a chest X-ray showing pneumonia,1,0.6694039,test
-pneumonia_test_000408,a normal chest X-ray,0,0.9994252,test
-pneumonia_test_000409,a normal chest X-ray,1,0.94303876,test
-pneumonia_test_000410,a normal chest X-ray,0,0.996959,test
-pneumonia_test_000411,a normal chest X-ray,0,0.9992337,test
-pneumonia_test_000412,a normal chest X-ray,0,0.9994252,test
-pneumonia_test_000413,a normal chest X-ray,1,0.5090122,test
-pneumonia_test_000414,a normal chest X-ray,0,0.9992938,test
-pneumonia_test_000415,a chest X-ray showing pneumonia,1,0.5074648,test
-pneumonia_test_000416,a normal chest X-ray,1,0.97487974,test
-pneumonia_test_000417,a chest X-ray showing pneumonia,1,0.93844426,test
-pneumonia_test_000418,a chest X-ray showing pneumonia,1,0.9571937,test
-pneumonia_test_000419,a normal chest X-ray,1,0.99001944,test
-pneumonia_test_000420,a chest X-ray showing pneumonia,1,0.7138627,test
-pneumonia_test_000421,a normal chest X-ray,1,0.50829333,test
-pneumonia_test_000422,a chest X-ray showing pneumonia,1,0.9528325,test
-pneumonia_test_000423,a normal chest X-ray,0,0.9979305,test
-pneumonia_test_000424,a normal chest X-ray,1,0.9987656,test
-pneumonia_test_000425,a chest X-ray showing pneumonia,1,0.78292257,test
-pneumonia_test_000426,a chest X-ray showing pneumonia,1,0.677689,test
-pneumonia_test_000427,a normal chest X-ray,1,0.9551211,test
-pneumonia_test_000428,a normal chest X-ray,0,0.91700906,test
-pneumonia_test_000429,a normal chest X-ray,0,0.9928376,test
-pneumonia_test_000430,a normal chest X-ray,0,0.9844508,test
-pneumonia_test_000431,a normal chest X-ray,1,0.9270593,test
-pneumonia_test_000432,a chest X-ray showing pneumonia,1,0.72775704,test
-pneumonia_test_000433,a normal chest X-ray,0,0.99962723,test
-pneumonia_test_000434,a normal chest X-ray,1,0.99971,test
-pneumonia_test_000435,a normal chest X-ray,1,0.85493946,test
-pneumonia_test_000436,a normal chest X-ray,1,0.84929204,test
-pneumonia_test_000437,a normal chest X-ray,1,0.9294557,test
-pneumonia_test_000438,a normal chest X-ray,1,0.99913627,test
-pneumonia_test_000439,a chest X-ray showing pneumonia,1,0.9266151,test
-pneumonia_test_000440,a chest X-ray showing pneumonia,1,0.82419014,test
-pneumonia_test_000441,a normal chest X-ray,0,0.9996296,test
-pneumonia_test_000442,a normal chest X-ray,1,0.9325414,test
-pneumonia_test_000443,a chest X-ray showing pneumonia,1,0.98049337,test
-pneumonia_test_000444,a normal chest X-ray,0,0.9802249,test
-pneumonia_test_000445,a normal chest X-ray,1,0.9981237,test
-pneumonia_test_000446,a normal chest X-ray,0,0.8047607,test
-pneumonia_test_000447,a normal chest X-ray,1,0.90227425,test
-pneumonia_test_000448,a normal chest X-ray,0,0.9984975,test
-pneumonia_test_000449,a chest X-ray showing pneumonia,1,0.93159604,test
-pneumonia_test_000450,a normal chest X-ray,0,0.99988854,test
-pneumonia_test_000451,a normal chest X-ray,1,0.9977422,test
-pneumonia_test_000452,a normal chest X-ray,1,0.9985751,test
-pneumonia_test_000453,a chest X-ray showing pneumonia,1,0.55962384,test
-pneumonia_test_000454,a normal chest X-ray,1,0.93303555,test
-pneumonia_test_000455,a normal chest X-ray,1,0.9958572,test
-pneumonia_test_000456,a normal chest X-ray,0,0.97996855,test
-pneumonia_test_000457,a normal chest X-ray,0,0.9805089,test
-pneumonia_test_000458,a normal chest X-ray,1,0.8455936,test
-pneumonia_test_000459,a normal chest X-ray,1,0.56717265,test
-pneumonia_test_000460,a normal chest X-ray,0,0.9998605,test
-pneumonia_test_000461,a normal chest X-ray,1,0.9045317,test
-pneumonia_test_000462,a chest X-ray showing pneumonia,1,0.5192818,test
-pneumonia_test_000463,a normal chest X-ray,0,0.9942232,test
-pneumonia_test_000464,a normal chest X-ray,1,0.9875745,test
-pneumonia_test_000465,a chest X-ray showing pneumonia,1,0.9297745,test
-pneumonia_test_000466,a chest X-ray showing pneumonia,1,0.8990359,test
-pneumonia_test_000467,a chest X-ray showing pneumonia,1,0.99186033,test
-pneumonia_test_000468,a chest X-ray showing pneumonia,1,0.9852765,test
-pneumonia_test_000469,a normal chest X-ray,0,0.99950683,test
-pneumonia_test_000470,a normal chest X-ray,0,0.89570165,test
-pneumonia_test_000471,a normal chest X-ray,0,0.99985266,test
-pneumonia_test_000472,a normal chest X-ray,0,0.9988813,test
-pneumonia_test_000473,a normal chest X-ray,0,0.9987061,test
-pneumonia_test_000474,a chest X-ray showing pneumonia,1,0.84597075,test
-pneumonia_test_000475,a normal chest X-ray,0,0.995745,test
-pneumonia_test_000476,a normal chest X-ray,0,0.99831104,test
-pneumonia_test_000477,a normal chest X-ray,1,0.96009266,test
-pneumonia_test_000478,a chest X-ray showing pneumonia,1,0.88579595,test
-pneumonia_test_000479,a chest X-ray showing pneumonia,1,0.5283262,test
-pneumonia_test_000480,a normal chest X-ray,1,0.98810846,test
-pneumonia_test_000481,a normal chest X-ray,0,0.9827696,test
-pneumonia_test_000482,a normal chest X-ray,0,0.9999039,test
-pneumonia_test_000483,a normal chest X-ray,0,0.9999405,test
-pneumonia_test_000484,a normal chest X-ray,0,0.9992828,test
-pneumonia_test_000485,a normal chest X-ray,0,0.9988111,test
-pneumonia_test_000486,a chest X-ray showing pneumonia,1,0.7979938,test
-pneumonia_test_000487,a normal chest X-ray,0,0.98236626,test
-pneumonia_test_000488,a normal chest X-ray,1,0.9940117,test
-pneumonia_test_000489,a normal chest X-ray,1,0.6447504,test
-pneumonia_test_000490,a normal chest X-ray,1,0.96632785,test
-pneumonia_test_000491,a chest X-ray showing pneumonia,1,0.8522545,test
-pneumonia_test_000492,a normal chest X-ray,0,0.8913557,test
-pneumonia_test_000493,a normal chest X-ray,1,0.9859384,test
-pneumonia_test_000494,a normal chest X-ray,1,0.976544,test
-pneumonia_test_000495,a normal chest X-ray,1,0.7372158,test
-pneumonia_test_000496,a normal chest X-ray,0,0.94098336,test
-pneumonia_test_000497,a normal chest X-ray,1,0.9347306,test
-pneumonia_test_000498,a normal chest X-ray,1,0.9928905,test
-pneumonia_test_000499,a chest X-ray showing pneumonia,1,0.98065853,test
-pneumonia_test_000500,a chest X-ray showing pneumonia,1,0.7790632,test
-pneumonia_test_000501,a normal chest X-ray,0,0.99948704,test
-pneumonia_test_000502,a normal chest X-ray,0,0.9587443,test
-pneumonia_test_000503,a chest X-ray showing pneumonia,1,0.5107987,test
-pneumonia_test_000504,a chest X-ray showing pneumonia,1,0.57854027,test
-pneumonia_test_000505,a normal chest X-ray,0,0.9994505,test
-pneumonia_test_000506,a normal chest X-ray,1,0.9987587,test
-pneumonia_test_000507,a chest X-ray showing pneumonia,1,0.56632864,test
-pneumonia_test_000508,a normal chest X-ray,0,0.82163745,test
-pneumonia_test_000509,a normal chest X-ray,1,0.96495926,test
-pneumonia_test_000510,a normal chest X-ray,0,0.6359443,test
-pneumonia_test_000511,a normal chest X-ray,0,0.99929094,test
-pneumonia_test_000512,a chest X-ray showing pneumonia,1,0.52689815,test
-pneumonia_test_000513,a chest X-ray showing pneumonia,1,0.9697828,test
-pneumonia_test_000514,a chest X-ray showing pneumonia,0,0.6754226,test
-pneumonia_test_000515,a normal chest X-ray,0,0.9989976,test
-pneumonia_test_000516,a chest X-ray showing pneumonia,1,0.6180148,test
-pneumonia_test_000517,a normal chest X-ray,1,0.99461824,test
-pneumonia_test_000518,a chest X-ray showing pneumonia,1,0.5595674,test
-pneumonia_test_000519,a chest X-ray showing pneumonia,0,0.51465183,test
-pneumonia_test_000520,a normal chest X-ray,1,0.9140624,test
-pneumonia_test_000521,a normal chest X-ray,0,0.9973807,test
-pneumonia_test_000522,a normal chest X-ray,1,0.92205364,test
-pneumonia_test_000523,a normal chest X-ray,0,0.99840075,test
-pneumonia_test_000524,a normal chest X-ray,1,0.8935654,test
-pneumonia_test_000525,a normal chest X-ray,1,0.5952959,test
-pneumonia_test_000526,a normal chest X-ray,1,0.97078854,test
-pneumonia_test_000527,a normal chest X-ray,0,0.9990778,test
-pneumonia_test_000528,a chest X-ray showing pneumonia,1,0.67860156,test
-pneumonia_test_000529,a normal chest X-ray,0,0.99911886,test
-pneumonia_test_000530,a chest X-ray showing pneumonia,1,0.69335294,test
-pneumonia_test_000531,a normal chest X-ray,0,0.9733209,test
-pneumonia_test_000532,a normal chest X-ray,1,0.9950381,test
-pneumonia_test_000533,a normal chest X-ray,1,0.90713817,test
-pneumonia_test_000534,a normal chest X-ray,1,0.9953394,test
-pneumonia_test_000535,a normal chest X-ray,0,0.9993814,test
-pneumonia_test_000536,a chest X-ray showing pneumonia,1,0.60517216,test
-pneumonia_test_000537,a normal chest X-ray,1,0.7456936,test
-pneumonia_test_000538,a chest X-ray showing pneumonia,1,0.82419014,test
-pneumonia_test_000539,a chest X-ray showing pneumonia,1,0.82121867,test
-pneumonia_test_000540,a normal chest X-ray,0,0.9998073,test
-pneumonia_test_000541,a normal chest X-ray,0,0.99538416,test
-pneumonia_test_000542,a normal chest X-ray,0,0.99834895,test
-pneumonia_test_000543,a normal chest X-ray,1,0.9426842,test
-pneumonia_test_000544,a chest X-ray showing pneumonia,1,0.95035505,test
-pneumonia_test_000545,a normal chest X-ray,1,0.99031854,test
-pneumonia_test_000546,a chest X-ray showing pneumonia,1,0.5645674,test
-pneumonia_test_000547,a normal chest X-ray,1,0.92795783,test
-pneumonia_test_000548,a normal chest X-ray,0,0.99998486,test
-pneumonia_test_000549,a normal chest X-ray,1,0.81881154,test
-pneumonia_test_000550,a normal chest X-ray,1,0.80331486,test
-pneumonia_test_000551,a chest X-ray showing pneumonia,1,0.89511406,test
-pneumonia_test_000552,a normal chest X-ray,0,0.9820701,test
-pneumonia_test_000553,a normal chest X-ray,0,0.9694772,test
-pneumonia_test_000554,a chest X-ray showing pneumonia,1,0.6643073,test
-pneumonia_test_000555,a normal chest X-ray,1,0.99406624,test
-pneumonia_test_000556,a normal chest X-ray,0,0.93016493,test
-pneumonia_test_000557,a chest X-ray showing pneumonia,1,0.6124686,test
-pneumonia_test_000558,a normal chest X-ray,0,0.98294026,test
-pneumonia_test_000559,a chest X-ray showing pneumonia,1,0.7886938,test
-pneumonia_test_000560,a normal chest X-ray,0,0.9998598,test
-pneumonia_test_000561,a normal chest X-ray,1,0.9367686,test
-pneumonia_test_000562,a normal chest X-ray,1,0.9844551,test
-pneumonia_test_000563,a chest X-ray showing pneumonia,1,0.9657728,test
-pneumonia_test_000564,a chest X-ray showing pneumonia,1,0.9931172,test
-pneumonia_test_000565,a normal chest X-ray,0,0.9997677,test
-pneumonia_test_000566,a normal chest X-ray,1,0.9316517,test
-pneumonia_test_000567,a normal chest X-ray,1,0.992266,test
-pneumonia_test_000568,a chest X-ray showing pneumonia,1,0.8639692,test
-pneumonia_test_000569,a chest X-ray showing pneumonia,1,0.8644305,test
-pneumonia_test_000570,a normal chest X-ray,0,0.99977523,test
-pneumonia_test_000571,a normal chest X-ray,1,0.994466,test
-pneumonia_test_000572,a normal chest X-ray,0,0.9998529,test
-pneumonia_test_000573,a normal chest X-ray,1,0.9506721,test
-pneumonia_test_000574,a normal chest X-ray,1,0.6433258,test
-pneumonia_test_000575,a normal chest X-ray,0,0.9987835,test
-pneumonia_test_000576,a normal chest X-ray,1,0.9128443,test
-pneumonia_test_000577,a normal chest X-ray,0,0.99969745,test
-pneumonia_test_000578,a normal chest X-ray,0,0.9999119,test
-pneumonia_test_000579,a chest X-ray showing pneumonia,1,0.647679,test
-pneumonia_test_000580,a normal chest X-ray,1,0.80814236,test
-pneumonia_test_000581,a normal chest X-ray,1,0.9399345,test
-pneumonia_test_000582,a chest X-ray showing pneumonia,1,0.53030014,test
-pneumonia_test_000583,a normal chest X-ray,1,0.9714227,test
-pneumonia_test_000584,a normal chest X-ray,0,0.97697157,test
-pneumonia_test_000585,a normal chest X-ray,1,0.9907545,test
-pneumonia_test_000586,a chest X-ray showing pneumonia,1,0.57436776,test
-pneumonia_test_000587,a normal chest X-ray,1,0.99220157,test
-pneumonia_test_000588,a normal chest X-ray,0,0.99433005,test
-pneumonia_test_000589,a normal chest X-ray,1,0.9370496,test
-pneumonia_test_000590,a normal chest X-ray,1,0.64648026,test
-pneumonia_test_000591,a normal chest X-ray,1,0.7028815,test
-pneumonia_test_000592,a normal chest X-ray,1,0.907025,test
-pneumonia_test_000593,a normal chest X-ray,0,0.9874791,test
-pneumonia_test_000594,a normal chest X-ray,1,0.7054994,test
-pneumonia_test_000595,a normal chest X-ray,0,0.998393,test
-pneumonia_test_000596,a normal chest X-ray,1,0.9516119,test
-pneumonia_test_000597,a normal chest X-ray,1,0.6583733,test
-pneumonia_test_000598,a normal chest X-ray,1,0.9996201,test
-pneumonia_test_000599,a normal chest X-ray,1,0.99853194,test
-pneumonia_test_000600,a normal chest X-ray,1,0.993856,test
-pneumonia_test_000601,a normal chest X-ray,1,0.87311256,test
-pneumonia_test_000602,a normal chest X-ray,0,0.9911209,test
-pneumonia_test_000603,a chest X-ray showing pneumonia,1,0.8449633,test
-pneumonia_test_000604,a normal chest X-ray,1,0.9723131,test
-pneumonia_test_000605,a normal chest X-ray,1,0.99130905,test
-pneumonia_test_000606,a normal chest X-ray,0,0.99922085,test
-pneumonia_test_000607,a normal chest X-ray,0,0.9996983,test
-pneumonia_test_000608,a normal chest X-ray,1,0.85656035,test
-pneumonia_test_000609,a normal chest X-ray,1,0.90880126,test
-pneumonia_test_000610,a chest X-ray showing pneumonia,1,0.930229,test
-pneumonia_test_000611,a normal chest X-ray,0,0.97660166,test
-pneumonia_test_000612,a normal chest X-ray,1,0.9888758,test
-pneumonia_test_000613,a chest X-ray showing pneumonia,1,0.6104743,test
-pneumonia_test_000614,a normal chest X-ray,0,0.9994105,test
-pneumonia_test_000615,a normal chest X-ray,1,0.936691,test
-pneumonia_test_000616,a chest X-ray showing pneumonia,1,0.7860399,test
-pneumonia_test_000617,a normal chest X-ray,1,0.7216084,test
-pneumonia_test_000618,a normal chest X-ray,1,0.99856657,test
-pneumonia_test_000619,a normal chest X-ray,0,0.97981936,test
-pneumonia_test_000620,a normal chest X-ray,0,0.99210465,test
-pneumonia_test_000621,a normal chest X-ray,0,0.99797744,test
-pneumonia_test_000622,a normal chest X-ray,0,0.9992275,test
-pneumonia_test_000623,a normal chest X-ray,0,0.9999684,test
+image_id,auto_label,ground_truth,ground_truth_label,confidence_score,split
+pneumonia_train_000000,pneumonia,1,pneumonia,0.6744521856307983,train
+pneumonia_train_000001,pneumonia,1,pneumonia,0.9971700310707092,train
+pneumonia_train_000002,pneumonia,1,pneumonia,0.9713730812072754,train
+pneumonia_train_000003,pneumonia,1,pneumonia,0.9666673541069031,train
+pneumonia_train_000004,pneumonia,1,pneumonia,0.9716652631759644,train
+pneumonia_train_000005,pneumonia,0,normal,0.992068886756897,train
+pneumonia_train_000006,pneumonia,1,pneumonia,0.964024007320404,train
+pneumonia_train_000007,pneumonia,0,normal,0.9937735795974731,train
+pneumonia_train_000008,pneumonia,1,pneumonia,0.9221256971359253,train
+pneumonia_train_000009,pneumonia,1,pneumonia,0.669285237789154,train
+pneumonia_train_000010,pneumonia,1,pneumonia,0.9993839263916016,train
+pneumonia_train_000011,pneumonia,1,pneumonia,0.9986742734909058,train
+pneumonia_train_000012,pneumonia,1,pneumonia,0.6042420268058777,train
+pneumonia_train_000013,pneumonia,1,pneumonia,0.9946152567863464,train
+pneumonia_train_000014,pneumonia,1,pneumonia,0.608992874622345,train
+pneumonia_train_000015,pneumonia,0,normal,0.995583713054657,train
+pneumonia_train_000016,pneumonia,1,pneumonia,0.5614275336265564,train
+pneumonia_train_000017,pneumonia,0,normal,0.9971500039100647,train
+pneumonia_train_000018,pneumonia,0,normal,0.9931894540786743,train
+pneumonia_train_000019,pneumonia,1,pneumonia,0.8936581015586853,train
+pneumonia_train_000020,pneumonia,0,normal,0.9861981272697449,train
+pneumonia_train_000021,pneumonia,1,pneumonia,0.9937706589698792,train
+pneumonia_train_000022,pneumonia,1,pneumonia,0.9647917747497559,train
+pneumonia_train_000023,pneumonia,1,pneumonia,0.9964773058891296,train
+pneumonia_train_000024,pneumonia,0,normal,0.9987999200820923,train
+pneumonia_train_000025,pneumonia,1,pneumonia,0.9296912550926208,train
+pneumonia_train_000026,pneumonia,1,pneumonia,0.9075886011123657,train
+pneumonia_train_000027,pneumonia,1,pneumonia,0.9701792001724243,train
+pneumonia_train_000028,pneumonia,1,pneumonia,0.7920796871185303,train
+pneumonia_train_000029,pneumonia,1,pneumonia,0.9579274654388428,train
+pneumonia_train_000030,pneumonia,1,pneumonia,0.9972612857818604,train
+pneumonia_train_000031,pneumonia,1,pneumonia,0.9238049387931824,train
+pneumonia_train_000032,pneumonia,0,normal,0.9890788197517395,train
+pneumonia_train_000033,pneumonia,1,pneumonia,0.9904628396034241,train
+pneumonia_train_000034,pneumonia,1,pneumonia,0.7339687347412109,train
+pneumonia_train_000035,pneumonia,1,pneumonia,0.9787731766700745,train
+pneumonia_train_000036,pneumonia,1,pneumonia,0.9480907320976257,train
+pneumonia_train_000037,pneumonia,1,pneumonia,0.9960464835166931,train
+pneumonia_train_000038,pneumonia,0,normal,0.9972355961799622,train
+pneumonia_train_000039,pneumonia,1,pneumonia,0.5396769642829895,train
+pneumonia_train_000040,pneumonia,1,pneumonia,0.7507954835891724,train
+pneumonia_train_000041,pneumonia,1,pneumonia,0.5727540254592896,train
+pneumonia_train_000042,pneumonia,1,pneumonia,0.9558441638946533,train
+pneumonia_train_000043,pneumonia,1,pneumonia,0.7952752113342285,train
+pneumonia_train_000044,pneumonia,1,pneumonia,0.9894086122512817,train
+pneumonia_train_000045,pneumonia,1,pneumonia,0.9060570597648621,train
+pneumonia_train_000046,pneumonia,1,pneumonia,0.8511549830436707,train
+pneumonia_train_000047,pneumonia,1,pneumonia,0.9914973378181458,train
+pneumonia_train_000048,pneumonia,1,pneumonia,0.5215911269187927,train
+pneumonia_train_000049,pneumonia,1,pneumonia,0.9771689176559448,train
+pneumonia_val_000000,pneumonia,1,pneumonia,0.7376741170883179,val
+pneumonia_val_000001,pneumonia,1,pneumonia,0.672918438911438,val
+pneumonia_val_000002,pneumonia,1,pneumonia,0.547827422618866,val
+pneumonia_val_000003,pneumonia,0,normal,0.9370757341384888,val
+pneumonia_val_000004,pneumonia,1,pneumonia,0.9723836779594421,val
+pneumonia_val_000005,pneumonia,1,pneumonia,0.9886492490768433,val
+pneumonia_val_000006,pneumonia,1,pneumonia,0.7561128735542297,val
+pneumonia_val_000007,pneumonia,0,normal,0.998481810092926,val
+pneumonia_val_000008,pneumonia,1,pneumonia,0.9260855317115784,val
+pneumonia_val_000009,pneumonia,1,pneumonia,0.9861673712730408,val
+pneumonia_val_000010,pneumonia,1,pneumonia,0.987420380115509,val
+pneumonia_val_000011,pneumonia,0,normal,0.993710994720459,val
+pneumonia_val_000012,pneumonia,1,pneumonia,0.8467389345169067,val
+pneumonia_val_000013,pneumonia,1,pneumonia,0.568286657333374,val
+pneumonia_val_000014,pneumonia,0,normal,0.9983300566673279,val
+pneumonia_val_000015,pneumonia,1,pneumonia,0.9961099028587341,val
+pneumonia_val_000016,pneumonia,1,pneumonia,0.9810241460800171,val
+pneumonia_val_000017,pneumonia,1,pneumonia,0.9587224721908569,val
+pneumonia_val_000018,pneumonia,1,pneumonia,0.8092070817947388,val
+pneumonia_val_000019,pneumonia,1,pneumonia,0.9676689505577087,val
+pneumonia_val_000020,pneumonia,1,pneumonia,0.9911899566650391,val
+pneumonia_val_000021,pneumonia,1,pneumonia,0.6121620535850525,val
+pneumonia_val_000022,pneumonia,0,normal,0.9971022009849548,val
+pneumonia_val_000023,pneumonia,1,pneumonia,0.6247103810310364,val
+pneumonia_val_000024,pneumonia,1,pneumonia,0.9105371832847595,val
+pneumonia_val_000025,pneumonia,1,pneumonia,0.8369292616844177,val
+pneumonia_val_000026,pneumonia,1,pneumonia,0.9183765053749084,val
+pneumonia_val_000027,pneumonia,1,pneumonia,0.9520010948181152,val
+pneumonia_val_000028,pneumonia,0,normal,0.9992378950119019,val
+pneumonia_val_000029,pneumonia,1,pneumonia,0.9824366569519043,val
+pneumonia_val_000030,pneumonia,0,normal,0.9997369647026062,val
+pneumonia_val_000031,pneumonia,0,normal,0.996505856513977,val
+pneumonia_val_000032,pneumonia,1,pneumonia,0.9685515761375427,val
+pneumonia_val_000033,pneumonia,0,normal,0.9902315735816956,val
+pneumonia_val_000034,pneumonia,1,pneumonia,0.8093963265419006,val
+pneumonia_val_000035,pneumonia,0,normal,0.9974883794784546,val
+pneumonia_val_000036,pneumonia,1,pneumonia,0.7839329242706299,val
+pneumonia_val_000037,pneumonia,0,normal,0.9936400055885315,val
+pneumonia_val_000038,pneumonia,0,normal,0.9993392825126648,val
+pneumonia_val_000039,pneumonia,1,pneumonia,0.8711654543876648,val
+pneumonia_val_000040,pneumonia,0,normal,0.9984203577041626,val
+pneumonia_val_000041,pneumonia,1,pneumonia,0.9732639789581299,val
+pneumonia_val_000042,pneumonia,1,pneumonia,0.8717619776725769,val
+pneumonia_val_000043,pneumonia,1,pneumonia,0.7724753618240356,val
+pneumonia_val_000044,pneumonia,1,pneumonia,0.545173168182373,val
+pneumonia_val_000045,pneumonia,0,normal,0.9935698509216309,val
+pneumonia_val_000046,pneumonia,0,normal,0.9783656597137451,val
+pneumonia_val_000047,pneumonia,1,pneumonia,0.9478552341461182,val
+pneumonia_val_000048,pneumonia,1,pneumonia,0.9925755262374878,val
+pneumonia_val_000049,pneumonia,0,normal,0.9524794816970825,val
+pneumonia_test_000000,pneumonia,1,pneumonia,0.8061850070953369,test
+pneumonia_test_000001,pneumonia,0,normal,0.9983208775520325,test
+pneumonia_test_000002,pneumonia,1,pneumonia,0.9941393136978149,test
+pneumonia_test_000003,pneumonia,0,normal,0.9959302544593811,test
+pneumonia_test_000004,pneumonia,1,pneumonia,0.7546477913856506,test
+pneumonia_test_000005,pneumonia,1,pneumonia,0.73465895652771,test
+pneumonia_test_000006,pneumonia,1,pneumonia,0.6689512133598328,test
+pneumonia_test_000007,pneumonia,1,pneumonia,0.7752885818481445,test
+pneumonia_test_000008,pneumonia,1,pneumonia,0.9952552318572998,test
+pneumonia_test_000009,pneumonia,0,normal,0.9980964064598083,test
+pneumonia_test_000010,pneumonia,1,pneumonia,0.9394217729568481,test
+pneumonia_test_000011,pneumonia,1,pneumonia,0.7547709941864014,test
+pneumonia_test_000012,pneumonia,1,pneumonia,0.9979612827301025,test
+pneumonia_test_000013,pneumonia,1,pneumonia,0.856633186340332,test
+pneumonia_test_000014,pneumonia,1,pneumonia,0.9980632662773132,test
+pneumonia_test_000015,pneumonia,1,pneumonia,0.6674635410308838,test
+pneumonia_test_000016,pneumonia,1,pneumonia,0.9143247604370117,test
+pneumonia_test_000017,pneumonia,1,pneumonia,0.9952710270881653,test
+pneumonia_test_000018,pneumonia,1,pneumonia,0.5105117559432983,test
+pneumonia_test_000019,pneumonia,0,normal,0.9853925108909607,test
+pneumonia_test_000020,pneumonia,0,normal,0.996604323387146,test
+pneumonia_test_000021,pneumonia,1,pneumonia,0.9780600666999817,test
+pneumonia_test_000022,pneumonia,1,pneumonia,0.998791515827179,test
+pneumonia_test_000023,pneumonia,1,pneumonia,0.9865617156028748,test
+pneumonia_test_000024,pneumonia,1,pneumonia,0.9761231541633606,test
+pneumonia_test_000025,pneumonia,0,normal,0.9982663989067078,test
+pneumonia_test_000026,pneumonia,1,pneumonia,0.8661066293716431,test
+pneumonia_test_000027,pneumonia,0,normal,0.9419906735420227,test
+pneumonia_test_000028,pneumonia,0,normal,0.9813496470451355,test
+pneumonia_test_000029,pneumonia,1,pneumonia,0.6157158017158508,test
+pneumonia_test_000030,pneumonia,0,normal,0.9995668530464172,test
+pneumonia_test_000031,pneumonia,1,pneumonia,0.9727214574813843,test
+pneumonia_test_000032,pneumonia,1,pneumonia,0.9841004610061646,test
+pneumonia_test_000033,pneumonia,1,pneumonia,0.9934112429618835,test
+pneumonia_test_000034,pneumonia,1,pneumonia,0.9404069781303406,test
+pneumonia_test_000035,pneumonia,1,pneumonia,0.9663872122764587,test
+pneumonia_test_000036,pneumonia,0,normal,0.9863530397415161,test
+pneumonia_test_000037,pneumonia,1,pneumonia,0.8687902688980103,test
+pneumonia_test_000038,pneumonia,0,normal,0.9928931593894958,test
+pneumonia_test_000039,pneumonia,0,normal,0.9962762594223022,test
+pneumonia_test_000040,pneumonia,1,pneumonia,0.9964874982833862,test
+pneumonia_test_000041,pneumonia,0,normal,0.9995923638343811,test
+pneumonia_test_000042,pneumonia,0,normal,0.9511032700538635,test
+pneumonia_test_000043,pneumonia,0,normal,0.9997591376304626,test
+pneumonia_test_000044,pneumonia,0,normal,0.9976227879524231,test
+pneumonia_test_000045,pneumonia,1,pneumonia,0.9969712495803833,test
+pneumonia_test_000046,pneumonia,0,normal,0.9955894947052002,test
+pneumonia_test_000047,pneumonia,1,pneumonia,0.9988774657249451,test
+pneumonia_test_000048,pneumonia,1,pneumonia,0.9991975426673889,test
+pneumonia_test_000049,pneumonia,1,pneumonia,0.8798508644104004,test
