@@ -1,0 +1,9 @@
+{
+  "labeled_csv": "results/labeled_dataset.csv",
+  "metrics_json": "results/metrics/auto_label_metrics.json",
+  "lora_subset_dir": "data/subset",
+  "lora_out_dir": "results/lora/pneumonia_lora",
+  "lora_weights": "results/lora/pneumonia_lora/pytorch_lora_weights.safetensors",
+  "generated_dir": "./results/generated_images",
+  "num_generated": 30
+}
