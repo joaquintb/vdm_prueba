@@ -2,6 +2,8 @@ prueba.pdf
 data/pneumoniamnist.npz 
 # data 
 
+results/lora
+
 # Python cache / bytecode
 __pycache__/
 *.py[cod]
