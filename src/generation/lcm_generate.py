@@ -156,9 +156,7 @@ def generate_images(pipe: DiffusionPipeline, prompts: List[str], cfg: GenConfig)
 
 def main() -> None:
     cfg = GenConfig(
-        # Point this to your local file (or folder). Example on Colab:
-        # finetuned_lora_path="/content/vdm_prueba/results/lora/pneumonia_lora/pytorch_lora_weights.safetensors"
-        finetuned_lora_path=None,
+        finetuned_lora_path="./results/lora/pneumonia_lora/pytorch_lora_weights.safetensors",
         num_images=10,
     )
 
