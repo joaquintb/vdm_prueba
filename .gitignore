@@ -1,5 +1,6 @@
 prueba.pdf
-data
+data/pneumoniamnist.npz 
+# data 
 
 # Python cache / bytecode
 __pycache__/
