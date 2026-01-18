@@ -26,7 +26,7 @@ class GenConfig:
     lcm_weight: float = 1.0
     finetuned_weight: float = 1.0
 
-    num_images: int = 10
+    num_images: int = 30
     num_inference_steps: int = 6
     guidance_scale: float = 1.0
     seed: int = 42
