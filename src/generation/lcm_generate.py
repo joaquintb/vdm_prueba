@@ -2,11 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 import torch
 from diffusers import DiffusionPipeline, LCMScheduler
-
 from tqdm import tqdm
 
 
@@ -14,19 +13,25 @@ from tqdm import tqdm
 class GenConfig:
     out_dir: str = "./results/generated_images"
 
-    # Base + LCM adapter (your requested setup)
+    # Base + LCM adapter (fast 4-step sampling)
     base_model: str = "runwayml/stable-diffusion-v1-5"
     lcm_lora: str = "latent-consistency/lcm-lora-sdv1-5"
 
-    # Fine-tuned LoRA path (Part 4). Keep None for Part 3 baseline.
+    # Your fine-tuned LoRA (local). Can be:
+    # - a folder containing LoRA weights
+    # - OR a single file: .../pytorch_lora_weights.safetensors
     finetuned_lora_path: Optional[str] = None
 
+    # How much to apply each adapter when multiple are supported
+    lcm_weight: float = 1.0
+    finetuned_weight: float = 1.0
+
     num_images: int = 10
-    num_inference_steps: int = 4  # LCM: few steps
-    guidance_scale: float = 1.0   # LCM typically works well around 1.0
+    num_inference_steps: int = 4
+    guidance_scale: float = 1.0
     seed: int = 42
 
-    batch_size: int = 1  # keep 1 for CPU; increase on GPU
+    batch_size: int = 2  # T4 can usually handle 2 at 512x512; drop to 1 if OOM
     device: str = "cuda" if torch.cuda.is_available() else "cpu"
 
 
@@ -38,7 +43,6 @@ def label_to_prompt(label: str) -> str:
 
 
 def default_prompts(n: int) -> List[str]:
-    # Balanced-ish prompts: half normal, half pneumonia
     prompts: List[str] = []
     for i in range(n):
         label = "normal" if i < (n // 2) else "pneumonia"
@@ -46,43 +50,81 @@ def default_prompts(n: int) -> List[str]:
     return prompts
 
 
-def _load_lora(pipe: DiffusionPipeline, lora_ref: str, adapter_name: Optional[str] = None) -> None:
+def _split_lora_ref(lora_ref: str) -> Tuple[str, Optional[str]]:
     """
-    Loads a LoRA adapter. Supports both:
+    If lora_ref is a file (.../*.safetensors), return (parent_dir, weight_name).
+    If it's a folder or HF repo id, return (lora_ref, None).
+    """
+    p = Path(lora_ref)
+    if p.suffix.lower() == ".safetensors" and p.exists():
+        return str(p.parent), p.name
+    return lora_ref, None
+
+
+def _load_lora(
+    pipe: DiffusionPipeline,
+    lora_ref: str,
+    adapter_name: Optional[str] = None,
+) -> None:
+    """
+    Loads a LoRA adapter from either:
     - HF repo id (e.g. latent-consistency/...)
-    - local folder path (e.g. results/lora/my_adapter/)
+    - local folder
+    - local .safetensors file
     """
+    base_ref, weight_name = _split_lora_ref(lora_ref)
+
     kwargs = {}
     if adapter_name is not None:
         kwargs["adapter_name"] = adapter_name
+    if weight_name is not None:
+        kwargs["weight_name"] = weight_name
 
-    try:
-        pipe.load_lora_weights(lora_ref, **kwargs)
-    except TypeError:
-        # Older diffusers versions might not support adapter_name
-        pipe.load_lora_weights(lora_ref)
+    pipe.load_lora_weights(base_ref, **kwargs)
 
 
 def build_diff_pipeline(cfg: GenConfig) -> DiffusionPipeline:
+    # On Colab GPU, fp16 is the right default. On CPU, use fp32.
     dtype = torch.float16 if cfg.device == "cuda" else torch.float32
 
-    pipe = DiffusionPipeline.from_pretrained(cfg.base_model, torch_dtype=dtype, safety_checker=None)
+    pipe = DiffusionPipeline.from_pretrained(
+        cfg.base_model,
+        torch_dtype=dtype,
+        safety_checker=None,
+    )
 
-    # Switch to LCM scheduler (sampling recipe)
+    # LCM sampling recipe
     pipe.scheduler = LCMScheduler.from_config(pipe.scheduler.config)
 
-    # Load LCM-LoRA adapter (speed/low-step generation)
+    # Load adapters
     _load_lora(pipe, cfg.lcm_lora, adapter_name="lcm")
 
-    # Optional: load your fine-tuned LoRA on top (Part 4)
     if cfg.finetuned_lora_path:
         _load_lora(pipe, cfg.finetuned_lora_path, adapter_name="finetuned")
 
-    # CPU/GPU settings
+    # Activate both adapters (if supported). If not, Diffusers will still apply the last loaded
+    # adapter; but most recent versions support multi-adapter blending.
+    if cfg.finetuned_lora_path:
+        try:
+            pipe.set_adapters(
+                ["lcm", "finetuned"],
+                adapter_weights=[cfg.lcm_weight, cfg.finetuned_weight],
+            )
+        except Exception:
+            pass  # fallback: keep default behavior
+
     pipe = pipe.to(cfg.device)
-    pipe.enable_attention_slicing()  # helps memory on CPU/GPU
+
+    # Memory helpers
+    pipe.enable_attention_slicing()
+    if cfg.device == "cuda":
+        try:
+            pipe.enable_xformers_memory_efficient_attention()
+        except Exception:
+            pass
 
     return pipe
+
 
 @torch.inference_mode()
 def generate_images(pipe: DiffusionPipeline, prompts: List[str], cfg: GenConfig) -> None:
@@ -93,19 +135,19 @@ def generate_images(pipe: DiffusionPipeline, prompts: List[str], cfg: GenConfig)
 
     for start in tqdm(range(0, len(prompts), bs), desc="Generating images", unit="batch"):
         batch_prompts = prompts[start : start + bs]
-        # Controlled randomness using a generator
-        # One generator per image (so seeds are stable even with batching)
+
         generators = [
             torch.Generator(device=cfg.device).manual_seed(cfg.seed + (start + j))
             for j in range(len(batch_prompts))
         ]
 
-        images = pipe(
+        result = pipe(
             batch_prompts,
             num_inference_steps=cfg.num_inference_steps,
             guidance_scale=cfg.guidance_scale,
             generator=generators,
-        ).images
+        )
+        images = result.images
 
         for j, img in enumerate(images):
             idx = start + j
@@ -113,13 +155,24 @@ def generate_images(pipe: DiffusionPipeline, prompts: List[str], cfg: GenConfig)
 
 
 def main() -> None:
-    cfg = GenConfig()
-    pipe = build_diff_pipeline(cfg)
+    cfg = GenConfig(
+        # Point this to your local file (or folder). Example on Colab:
+        # finetuned_lora_path="/content/vdm_prueba/results/lora/pneumonia_lora/pytorch_lora_weights.safetensors"
+        finetuned_lora_path=None,
+        num_images=10,
+    )
 
+    if cfg.device != "cuda":
+        print(
+            "[Warning] CUDA not available. This will run on CPU and will be very slow.\n"
+            "In Colab, choose Runtime -> Change runtime type -> GPU."
+        )
+
+    pipe = build_diff_pipeline(cfg)
     prompts = default_prompts(cfg.num_images)
     generate_images(pipe, prompts, cfg)
-
     print(f"Saved {cfg.num_images} images to: {cfg.out_dir}")
+
 
 if __name__ == "__main__":
     main()
