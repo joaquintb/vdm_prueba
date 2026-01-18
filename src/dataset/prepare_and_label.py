@@ -24,7 +24,7 @@ class PrepareConfig:
     # LoRA fine-tuning subset export
     export_lora_subset: bool = True
     lora_subset_dir: str = "./data/subset"
-    lora_subset_size: int = 250  # total; will be balanced (size//2 per class)
+    lora_subset_size: int = 500  # total; will be balanced (size//2 per class)
 
 
 def make_image_id(split: str, idx_in_split: int) -> str:
