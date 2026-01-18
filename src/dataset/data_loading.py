@@ -16,8 +16,8 @@ class DataConfig:
     Images are returned in raw form (no model-specific preprocessing).
     """
     data_root: str = "./data"
-    batch_size: int = 8   # temp: default for CPU
-    num_workers: int = 0  # safer default on Windows
+    batch_size: int = 32 
+    num_workers: int = 2 
 
 
 def load_split(split: str, cfg: DataConfig) -> PneumoniaMNIST:
@@ -35,8 +35,7 @@ def load_split(split: str, cfg: DataConfig) -> PneumoniaMNIST:
         transform=None,
     )
 
-    # Take only the first x samples (for testing)
-    return Subset(ds, range(50))
+    return ds
 
 
 def collate_raw_images(batch: List[Tuple[Any, torch.Tensor]]):
