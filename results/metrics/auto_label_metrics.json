@@ -1,42 +1,42 @@
 {
   "test": {
-    "n": 50,
-    "accuracy": 0.66,
+    "n": 624,
+    "accuracy": 0.625,
     "confusion_matrix": {
       "tn": 0,
-      "fp": 17,
+      "fp": 234,
       "fn": 0,
-      "tp": 33
+      "tp": 390
     }
   },
   "train": {
-    "n": 50,
-    "accuracy": 0.82,
+    "n": 4708,
+    "accuracy": 0.7421410365335599,
     "confusion_matrix": {
       "tn": 0,
-      "fp": 9,
+      "fp": 1214,
       "fn": 0,
-      "tp": 41
+      "tp": 3494
     }
   },
   "val": {
-    "n": 50,
-    "accuracy": 0.68,
+    "n": 524,
+    "accuracy": 0.7423664122137404,
     "confusion_matrix": {
       "tn": 0,
-      "fp": 16,
+      "fp": 135,
       "fn": 0,
-      "tp": 34
+      "tp": 389
     }
   },
   "overall": {
-    "n": 150,
-    "accuracy": 0.72,
+    "n": 5856,
+    "accuracy": 0.7296789617486339,
     "confusion_matrix": {
       "tn": 0,
-      "fp": 42,
+      "fp": 1583,
       "fn": 0,
-      "tp": 108
+      "tp": 4273
     }
   }
 }
