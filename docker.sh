@@ -1,9 +1,8 @@
 docker build -f docker\Dockerfile -t vdm-pipeline .
 
 docker run --rm `
-  -v ${PWD}\results:/app/results `
   -v ${PWD}\data:/app/data `
-  vdm-pipeline
+  vdm-pipeline --force --skip-lora
 
 docker images | findstr vdm-pipeline
 
