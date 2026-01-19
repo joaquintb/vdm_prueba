@@ -1,3 +1,15 @@
+"""
+lora_fine_tuning.py
+
+Part 3: Lightweight LoRA fine-tuning wrapper for Stable Diffusion (text-to-image).
+
+This script does NOT reimplement training logic. Instead, it wraps and calls
+the official Diffusers LoRA training script via `accelerate launch`.
+
+Assumes a small, already-prepared dataset on disk (images + metadata),
+typically exported during the dataset preparation stage of the pipeline.
+"""
+
 from __future__ import annotations
 
 import subprocess
@@ -8,48 +20,53 @@ from pathlib import Path
 @dataclass(frozen=True)
 class LoRAFineTuneConfig:
     """
-    Thin wrapper to run the official Diffusers LoRA text-to-image fine-tuning script.
+    Configuration for lightweight LoRA fine-tuning using Diffusers.
 
-    Assumes you already have a small dataset on disk:
-      data/subset/images/*.png
-      data/subset/metadata.jsonl   ({"file_name": "...", "text": "..."} per line)
-
-    The output is a LoRA adapter directory loadable with:
-      pipe.load_lora_weights(<output_dir>)
+    This acts as a thin orchestration layer around the official
+    `train_text_to_image_lora.py` script.
     """
 
-    # Vendored official script (keep it pinned to your diffusers version tag)
+    # Path to the vendored Diffusers training script (kept version-pinned)
     script_path: str = "third_party/diffusers/train_text_to_image_lora.py"
 
-    # Input dataset
+    # Dataset prepared beforehand:
+    #   data/subset/images/*.png
+    #   data/subset/metadata.jsonl
     train_data_dir: str = "data/subset"
     resolution: int = 256
 
-    # Base model
+    # Base diffusion model to adapt
     pretrained_model: str = "runwayml/stable-diffusion-v1-5"
 
-    # Training (light, for a T4)
+    # Training setup: intentionally small and fast (suitable for Colab T4)
     batch_size: int = 1
     grad_accum_steps: int = 4
     learning_rate: float = 1e-4
     max_train_steps: int = 200
     rank: int = 8
     seed: int = 42
-    mixed_precision: str = "fp16"  # good default on T4
+    mixed_precision: str = "fp16"  # good default on T4 GPUs
 
-    # Output
+    # Output directory where the LoRA adapter will be saved
     output_dir: str = "results/lora/pneumonia_lora"
 
-    # Optional: reduces disk usage (keeps only last checkpoint if enabled by script)
+    # Optional: save checkpoints every N steps (None = disabled)
     checkpointing_steps: int | None = None
 
 
 def _validate_inputs(cfg: LoRAFineTuneConfig) -> None:
+    """
+    Sanity-checks all required inputs before launching training.
+
+    Fails early if:
+    - the Diffusers script is missing
+    - the dataset structure is incomplete
+    """
     script = Path(cfg.script_path)
     if not script.exists():
         raise FileNotFoundError(
             f"Could not find vendored Diffusers script at: {script}\n"
-            "Make sure you copied train_text_to_image_lora.py into third_party/diffusers/."
+            "Make sure train_text_to_image_lora.py was copied into third_party/diffusers/."
         )
 
     train_dir = Path(cfg.train_data_dir)
@@ -58,22 +75,27 @@ def _validate_inputs(cfg: LoRAFineTuneConfig) -> None:
 
     images_dir = train_dir / "images"
     meta_path = train_dir / "metadata.jsonl"
+
     if not images_dir.exists():
         raise FileNotFoundError(f"Missing images dir: {images_dir}")
     if not meta_path.exists():
         raise FileNotFoundError(f"Missing metadata file: {meta_path}")
 
-    out_dir = Path(cfg.output_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
+    # Ensure output directory exists before training starts
+    Path(cfg.output_dir).mkdir(parents=True, exist_ok=True)
 
 
 def run_lora_finetune(cfg: LoRAFineTuneConfig) -> Path:
     """
-    Runs LoRA fine-tuning via `accelerate launch`.
-    Returns the output directory containing the LoRA adapter.
+    Runs LoRA fine-tuning by calling the official Diffusers script
+    through `accelerate launch`.
+
+    Returns:
+        Path to the directory containing the trained LoRA adapter.
     """
     _validate_inputs(cfg)
 
+    # Build the command exactly as recommended by Diffusers
     cmd = [
         "accelerate",
         "launch",
@@ -102,14 +124,16 @@ def run_lora_finetune(cfg: LoRAFineTuneConfig) -> Path:
         cfg.mixed_precision,
     ]
 
-    # Optional checkpointing (only if the script supports it; v0.36.0 does)
+    # Optional checkpointing (supported by recent Diffusers versions)
     if cfg.checkpointing_steps is not None:
         cmd += ["--checkpointing_steps", str(cfg.checkpointing_steps)]
 
+    # Print command for transparency and reproducibility
     print("\nRunning LoRA fine-tuning (official Diffusers script):\n")
     print(" ".join(cmd))
     print()
 
+    # Execute training as a subprocess
     subprocess.run(cmd, check=True)
 
     out_dir = Path(cfg.output_dir)
@@ -118,6 +142,9 @@ def run_lora_finetune(cfg: LoRAFineTuneConfig) -> Path:
 
 
 def main() -> None:
+    """
+    Standalone entry point for LoRA fine-tuning.
+    """
     cfg = LoRAFineTuneConfig()
     run_lora_finetune(cfg)
 
