@@ -1,7 +1,7 @@
 """
 lcm_generate.py
 
-Part 3: LCM-based image generation for medical text-to-image synthesis.
+Part 3a: LCM-based image generation for medical text-to-image synthesis.
 
 This script generates synthetic chest X-ray images conditioned on text prompts
 using Stable Diffusion + Latent Consistency Models (LCM), optionally combined
