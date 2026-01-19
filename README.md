@@ -1,53 +1,62 @@
-# vdm_prueba
+# Prueba Técnica VDM Health
+**Autor**: Joaquín Torres Bravo.
 
+## Introducción
+Este repositorio contiene la implementación completa de la prueba técnica para VDM Health, centrada en el uso de modelos multimodales y generativos aplicados al dominio de la imagen médica.
 
-## Ejecución del pipeline
+El objetivo de esta prueba es desarrollar un pipeline que integra: carga y preparación del dataset, etiquetado automático mediante un modelo CLIP-like, fine-tuning ligero con LoRA, y generación de imágenes sintéticas condicionadas por texto (Stable Diffusion + LCM).
 
-El pipeline completo se ejecuta desde la raíz del proyecto con:
+## Estructura del Repositorio
+* **`data/`**: carpeta destinada a datos locales (no versionados en Git).
 
-```bash
-python -m src.pipeline
-```
+  * **`subset/`**: subset exportado (imágenes + `metadata.jsonl`) para el fine-tuning LoRA.
+  * **`.gitkeep`**: mantiene la carpeta `data/` en el repo aunque esté vacía.
+  * **`pneumoniamnist.npz`**: archivo descargado del dataset (MedMNIST) para ejecución local.
 
-Este comando ejecuta secuencialmente:
+* **`docker/`**
 
-1. Preparación y etiquetado automático del dataset.
-2. Fine-tuning ligero (LoRA) sobre un subset etiquetado.
-3. Generación de imágenes médicas condicionadas por texto.
+  * **`Dockerfile`**: imagen Docker basada en PyTorch con soporte CUDA (fallback a CPU) para ejecutar el pipeline completo.
 
-### Opciones disponibles
+* **`results/`**: outputs generados por el pipeline.
 
-* **`--skip_labeling`**
-  Omite la fase de preparación y etiquetado si los resultados ya existen.
+  * **`generated_images/`**: imágenes generadas (usando LCM + LoRA fine-tuned).
+  * **`generated_images_no_fine_tuning/`**: generación base (LCM sin LoRA fine-tuned), usada como referencia.
+  * **`lora/`**: artefactos del fine-tuning LoRA (pesos entrenados y/o checkpoints).
+  * **`metrics/`**: métricas básicas para el etiquetado automático.
+  * **`labeled_dataset.csv`**: CSV principal con `image_id`, `auto_label`, `ground_truth` y `confidence_score`.
+  * **`pipeline_summary.json`**: resumen del run (rutas de artefactos y configuración/resultados principales).
 
-* **`--skip_lora`**
-  Omite el fine-tuning LoRA y reutiliza pesos previamente entrenados.
+* **`src/`**: código fuente del proyecto, organizado por módulos.
 
-* **`--skip_generation`**
-  Omite la generación de imágenes.
+  * **`dataset/`**
 
-* **`--force`**
-  Fuerza la reejecución de una fase aunque sus resultados ya existan.
+    * **`__init__.py`**: define el paquete.
+    * **`data_loading.py`**: carga del dataset y creación de DataLoaders por split.
+    * **`prepare_and_label.py`**: prepara dataset, hace etiquetado automático y exporta subset para LoRA.
+  * **`generation/`**
 
-* **`--num_images N`**
-  Número de imágenes a generar en la fase de generación (por defecto: 10).
+    * **`__init__.py`**: define el paquete.
+    * **`lcm_generate.py`**: generación de imágenes con Stable Diffusion + LCM (+ LoRA fine-tuned opcional).
+    * **`lora_fine_tuning.py`**: wrapper para lanzar fine-tuning LoRA usando el script oficial de Diffusers.
+  * **`semantic/`**
 
-### Ejemplos
+    * **`__init__.py`**: define el paquete.
+    * **`multimodal_recognition.py`**: inferencia CLIP-like (BiomedCLIP) para similitud texto–imagen y predicción de etiquetas.
+  * **`pipeline.py`**: orquestación end-to-end del pipeline (labeling → LoRA → generación), con flags para saltar etapas.
 
-Ejecutar todo el pipeline:
+* **`third_party/diffusers/`**
 
-```bash
-python -m src.pipeline
-```
+  * **`train_text_to_image_lora.py`**: script oficial de Diffusers para entrenar LoRA.
 
-Generar imágenes usando el LoRA ya entrenado:
+* **`tools/`**: utilidades auxiliares (no forman parte del pipeline principal).
 
-```bash
-python -m src.pipeline --skip_labeling --skip_lora
-```
+  * **`colab_testing.ipynb`**: notebook usado para pruebas/ejecución en Colab (GPU).
+  * **`smoke_test_imports.py`**: smoke test para verificar imports y dependencias del entorno.
 
-Reentrenar LoRA sin repetir el etiquetado:
+* **`README.md`**: documentación del proyecto y guía de ejecución.
 
-```bash
-python -m src.pipeline --skip_labeling --force
-```
+* **`.gitignore`**: exclusiones de Git (datasets, outputs pesados, caches, etc.).
+
+* **`requirements.txt`**: dependencias completas para desarrollo/local.
+
+* **`requirements-docker.txt`**: dependencias mínimas para ejecutar en Docker.
