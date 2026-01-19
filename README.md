@@ -245,6 +245,11 @@ docker run --rm `
 ### Smoke Test
 Dado que la ejecución completa del pipeline dentro de Docker puede ser costosa sin GPU, se incluye un smoke test que importa los módulos y scripts principales para verificar que el entorno y las dependencias están correctamente configurados. Esto valida el funcionamiento básico del contenedor sin necesidad de ejecutar el pipeline completo (ya validado en Colab).
 
+Desde la raíz del repositorio:
+```powershell
+docker run --rm vdm-pipeline python tools/smoke_test_imports.py 
+```
+
 ### Requirements
 Se utiliza un archivo `requirements-docker.txt` reducido para minimizar el tiempo de build y evitar dependencias innecesarias dentro de Docker. Las librerías incluidas son las estrictamente necesarias para ejecutar el pipeline. PyTorch no se fija en este archivo, ya que su versión se define en la imagen base de Docker, evitando conflictos de dependencias.
 
