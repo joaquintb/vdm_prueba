@@ -149,6 +149,7 @@ Esto es coherente con el enfoque adoptado: el LoRA introduce una adaptación lig
 * **Entorno local:** Windows 11 sin GPU. Esto limitó la ejecución local de modelos pesados y motivó el uso de un entorno con GPU para fases costosas.
 * **Ejecución con GPU:** Google Colab para validar BiomedCLIP, generación con LCM y fine-tuning LoRA, además de comprobar el pipeline completo.
   * Notebook auxiliar: `tools/colab_testing.ipynb`
+* **Manejo de versiones**: uso de Conda para crear y aislar el entorno de dependencias.
 * **Edición de código:** VS Code.
 * **Control de versiones:** Git.
 * **Reproducibilidad:** Docker para encapsular dependencias y permitir ejecución con fallback a CPU.
