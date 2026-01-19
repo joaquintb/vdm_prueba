@@ -1,3 +1,13 @@
+"""
+prepare_and_label.py
+
+Part 1+2 orchestration:
+- Load PneumoniaMNIST splits (raw images).
+- Run CLIP-like zero-shot labeling (BiomedCLIP) against a small prompt set.
+- Save the required artifact: results/labeled_dataset.csv (+ basic metrics JSON).
+- Optionally export a small, balanced subset to disk for LoRA fine-tuning.
+"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -18,6 +28,7 @@ from src.semantic.multimodal_recognition import RecognitionConfig, predict_label
 
 @dataclass(frozen=True)
 class PrepareConfig:
+    """High-level config for dataset labeling + optional LoRA subset export."""
     results_dir: str = "./results"
     split_order: tuple[str, ...] = ("train", "val", "test")
 
@@ -28,10 +39,15 @@ class PrepareConfig:
 
 
 def make_image_id(split: str, idx_in_split: int) -> str:
+    """Stable sample identifier used in the CSV artifact."""
     return f"pneumonia_{split}_{idx_in_split:06d}"
 
 
 def default_prompts() -> List[str]:
+    """
+    Minimal prompt set for the task.
+    Keep them parallel in style and only vary the clinical concept.
+    """
     return [
         "a chest X-ray with no evidence of pneumonia",
         "a chest X-ray with pulmonary opacity consistent with pneumonia",
@@ -39,23 +55,28 @@ def default_prompts() -> List[str]:
 
 
 def prompt_to_class(label: str) -> int:
+    """Map a prompt string to a binary class id (0=normal, 1=pneumonia)."""
     s = (label or "").lower()
     return 1 if "pneumonia" in s else 0
 
 
 def prompt_to_short_label(prompt: str) -> str:
+    """Convert a prompt into a compact label string: 'normal' or 'pneumonia'."""
     s = prompt.lower()
     return "pneumonia" if "pneumonia" in s else "normal"
 
 
 def gt_to_label(y: int) -> str:
+    """Human-readable label for the ground truth id."""
     return "pneumonia" if int(y) == 1 else "normal"
 
 
 def ensure_pil(img) -> Image.Image:
     """
-    The MedMNIST dataloader may return PIL, numpy arrays or torch tensors.
-    This makes saving consistent.
+    Ensure an image is a PIL.Image.
+
+    MedMNIST can yield PIL / numpy arrays / tensors depending on how data is read.
+    Converting here makes saving consistent for the LoRA subset export.
     """
     if isinstance(img, Image.Image):
         return img
@@ -67,6 +88,10 @@ def ensure_pil(img) -> Image.Image:
 
 
 def compute_binary_metrics(df: pd.DataFrame) -> Dict[str, object]:
+    """
+    Compute very lightweight metrics for sanity-checking the auto labels:
+    accuracy + confusion matrix (tn, fp, fn, tp).
+    """
     y_true = df["ground_truth"].to_numpy(dtype=int)
     y_pred = df["auto_label"].apply(prompt_to_class).to_numpy(dtype=int)
 
@@ -83,6 +108,9 @@ def compute_binary_metrics(df: pd.DataFrame) -> Dict[str, object]:
 
 
 def save_metrics(df: pd.DataFrame, results_dir: Path) -> Path:
+    """
+    Save per-split + overall metrics to results/metrics/auto_label_metrics.json.
+    """
     metrics_dir = results_dir / "metrics"
     metrics_dir.mkdir(parents=True, exist_ok=True)
 
@@ -101,9 +129,11 @@ def save_metrics(df: pd.DataFrame, results_dir: Path) -> Path:
 
 def init_lora_subset_export(cfg: PrepareConfig) -> Optional[Tuple[Path, Path]]:
     """
-    Prepares output folders for a balanced LoRA fine-tuning subset:
+    Prepare folders for a balanced LoRA subset exported from the TRAIN split:
       data/subset/images/
       data/subset/metadata.jsonl
+
+    We overwrite metadata.jsonl each run to keep things deterministic and clean.
     """
     if not cfg.export_lora_subset:
         return None
@@ -114,7 +144,6 @@ def init_lora_subset_export(cfg: PrepareConfig) -> Optional[Tuple[Path, Path]]:
     images_dir.mkdir(parents=True, exist_ok=True)
 
     meta_path = subset_dir / "metadata.jsonl"
-    # Overwrite on each run to keep it deterministic / clean.
     if meta_path.exists():
         meta_path.unlink()
 
@@ -132,14 +161,18 @@ def maybe_export_to_lora_subset(
     total_target: int,
 ) -> bool:
     """
-    Saves one image + its prompt to the LoRA subset if we still need samples from its class.
-    Returns True if it was saved.
+    Save a single (image, caption) pair to the LoRA subset if we still need
+    samples for that class.
+
+    Captions are taken from the fixed prompt list using ground-truth class `y`.
+    This makes fine-tuning more stable than relying on noisy auto-labels.
     """
     if counters[0] + counters[1] >= total_target:
         return False
     if counters[int(y)] >= target_per_class:
         return False
 
+    # Use a simple increasing index so file names are stable and easy to track.
     idx = counters[0] + counters[1]
     pil = ensure_pil(img).convert("RGB")
 
@@ -155,6 +188,13 @@ def maybe_export_to_lora_subset(
 
 
 def main() -> None:
+    """
+    End-to-end labeling:
+    - iterates train/val/test,
+    - predicts zero-shot labels with BiomedCLIP in batches,
+    - writes labeled_dataset.csv (+ metrics),
+    - optionally exports a balanced LoRA subset from train.
+    """
     data_cfg = DataConfig()
     prep_cfg = PrepareConfig()
     rec_cfg = RecognitionConfig()
@@ -165,7 +205,7 @@ def main() -> None:
     prompts = default_prompts()
     dls = get_dataloaders(data_cfg)
 
-    # Prepare optional LoRA subset export (balanced, from TRAIN split only)
+    # Optional LoRA subset export (balanced, from TRAIN only)
     subset_paths = init_lora_subset_export(prep_cfg)
     subset_counters = {0: 0, 1: 0}
     subset_target_per_class = prep_cfg.lora_subset_size // 2
@@ -179,11 +219,10 @@ def main() -> None:
         pbar = tqdm(loader, desc=f"Labelling {split} split", unit="batch", leave=True)
 
         for images, labels in pbar:
-            # MedMNIST labels: shape [B, 1] -> [B]
-            ground_truth = labels.view(-1).tolist()
-            ground_truth = [int(x) for x in ground_truth]
+            # MedMNIST labels are [B, 1]; flatten to [B] and cast to Python ints.
+            ground_truth = [int(x) for x in labels.view(-1).tolist()]
 
-            # Part 2: CLIP-like recognition (BiomedCLIP) to get auto labels + confidence
+            # BiomedCLIP inference returns one chosen prompt + a softmax confidence per image.
             auto_labels, conf_scores = predict_labels(images, prompts, rec_cfg)
 
             for i in range(len(images)):
@@ -193,7 +232,7 @@ def main() -> None:
 
                 y = ground_truth[i]
 
-                # Optional: export a balanced subset for LoRA fine-tuning (TRAIN only)
+                # If requested, export a small, balanced train subset for LoRA fine-tuning.
                 subset_full = (subset_counters[0] + subset_counters[1]) >= prep_cfg.lora_subset_size
                 if split == "train" and subset_paths is not None and not subset_full:
                     images_dir, meta_path = subset_paths
@@ -208,6 +247,7 @@ def main() -> None:
                         total_target=prep_cfg.lora_subset_size,
                     )
 
+                # Store a compact auto label for easy downstream use ("normal"/"pneumonia").
                 rows.append(
                     {
                         "image_id": make_image_id(split, idx_in_split),
@@ -220,6 +260,7 @@ def main() -> None:
                 )
                 idx_in_split += 1
 
+            # Show a small live summary while running.
             pbar.set_postfix(
                 {
                     "rows": len(rows),
@@ -246,6 +287,7 @@ def main() -> None:
             f"Saved LoRA subset to: {prep_cfg.lora_subset_dir} "
             f"(normal={subset_counters[0]}, pneumonia={subset_counters[1]}, total={n_saved})"
         )
+
 
 if __name__ == "__main__":
     main()
