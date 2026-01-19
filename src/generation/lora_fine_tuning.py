@@ -1,7 +1,7 @@
 """
 lora_fine_tuning.py
 
-Part 3: Lightweight LoRA fine-tuning wrapper for Stable Diffusion (text-to-image).
+Part 3b: Lightweight LoRA fine-tuning wrapper for Stable Diffusion (text-to-image).
 
 This script does NOT reimplement training logic. Instead, it wraps and calls
 the official Diffusers LoRA training script via `accelerate launch`.
