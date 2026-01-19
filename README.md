@@ -175,7 +175,7 @@ docker build -t vdm-pipeline -f docker/Dockerfile .
 docker run --rm vdm-pipeline
 ```
 
-Por defecto, el contenedor ejecuta todo el pipeline: `python -m src.pipeline --force` (a sobreescribir con los comandos de abajo).
+Por defecto, el contenedor ejecuta todo el pipeline: `python -m src.pipeline --force` (a sobrescribir con los comandos de abajo).
 
 ---
 
