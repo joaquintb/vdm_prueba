@@ -1,3 +1,18 @@
+"""
+pipeline.py
+
+Part 4: Integrated end-to-end pipeline.
+
+This script orchestrates the full workflow:
+1. Dataset preparation and automatic labeling.
+2. Lightweight LoRA fine-tuning on a small labeled subset.
+3. Image generation using Stable Diffusion + LCM (+ optional fine-tuned LoRA).
+
+The pipeline is disk-based: each stage writes artifacts to disk and the next
+stage reads from them. This makes the process robust, debuggable, and easy
+to resume or partially skip.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -8,13 +23,13 @@ from typing import Optional
 
 import torch
 
-# Automatic labeling + subset export
+# Parts 1&2: automatic labeling + subset export
 from src.dataset.prepare_and_label import main as prepare_and_label_main
 
-# Part 4 (step 2): LoRA fine-tuning
+# Part 3b: LoRA fine-tuning
 from src.generation.lora_fine_tuning import LoRAFineTuneConfig, run_lora_finetune
 
-# Part 3: LCM generation
+# Part 3a: LCM-based image generation
 from src.generation.lcm_generate import (
     GenConfig,
     build_diff_pipeline,
@@ -25,6 +40,9 @@ from src.generation.lcm_generate import (
 
 @dataclass(frozen=True)
 class PipelineConfig:
+    """
+    Centralized paths for pipeline artifacts.
+    """
     results_dir: str = "./results"
     labeled_csv: str = "./results/labeled_dataset.csv"
     metrics_json: str = "./results/metrics/auto_label_metrics.json"
@@ -36,7 +54,11 @@ class PipelineConfig:
 
 
 def _find_lora_weights(out_dir: Path) -> Optional[Path]:
-    """Locate LoRA weights produced by training."""
+    """
+    Locate LoRA weights produced by training.
+
+    Supports both standard Diffusers filenames and generic .safetensors outputs.
+    """
     candidates = [
         out_dir / "pytorch_lora_weights.safetensors",
         out_dir / "pytorch_lora_weights.bin",
@@ -50,6 +72,12 @@ def _find_lora_weights(out_dir: Path) -> Optional[Path]:
 
 
 def main() -> None:
+    """
+    Entry point for running the full pipeline.
+
+    Each stage can be skipped independently, and `--force` allows recomputation
+    even if artifacts already exist on disk.
+    """
     parser = argparse.ArgumentParser(description="Run full VDM pipeline (disk-based).")
     parser.add_argument("--skip_labeling", action="store_true")
     parser.add_argument("--skip_lora", action="store_true")
@@ -70,14 +98,14 @@ def main() -> None:
     print(f"Device: {'cuda' if torch.cuda.is_available() else 'cpu'}\n")
 
     # -----------------------
-    # Step 1: Label dataset
+    # Step 1: Dataset labeling
     # -----------------------
     if not args.skip_labeling:
         if args.force or not labeled_csv.exists():
             print("[1/3] Running prepare_and_label...")
             prepare_and_label_main()
         else:
-            print("[1/3] Skipping prepare_and_label (already exists).")
+            print("[1/3] Skipping prepare_and_label (artifacts already exist).")
     else:
         print("[1/3] Skipped (flag).")
 
@@ -89,7 +117,7 @@ def main() -> None:
     print()
 
     # -----------------------
-    # Step 2: LoRA fine-tune
+    # Step 2: LoRA fine-tuning
     # -----------------------
     finetuned_weights = _find_lora_weights(lora_out_dir)
 
@@ -128,7 +156,7 @@ def main() -> None:
 
         pipe = build_diff_pipeline(gen_cfg)
 
-        # Simple, deterministic prompts: 50% normal / 50% pneumonia
+        # Simple, deterministic prompt set: balanced normal / pneumonia
         prompts = default_prompts(gen_cfg.num_images)
 
         generate_images(pipe, prompts, gen_cfg)
