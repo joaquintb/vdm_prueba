@@ -1,3 +1,17 @@
+"""
+multimodal_recognition.py
+
+Part 2: CLIP-like radiology semantic recognition (zero-shot).
+
+This module wraps BiomedCLIP inference:
+- Converts raw dataset images (PIL / numpy / tensor) into a consistent format.
+- Uses the model-provided preprocess for correct normalization/resizing.
+- Computes text-image similarities against a small set of prompts and returns
+  the best-matching label + a confidence score.
+
+Important: the model is cached in-process to avoid re-loading weights for every batch.
+"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -15,6 +29,9 @@ import open_clip
 class RecognitionConfig:
     """
     Configuration for BiomedCLIP inference.
+
+    cache_dir can be used to control where HF/OpenCLIP stores weights
+    (useful in Docker/CI environments).
     """
     model_id: str = "hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224"
     device: str = "cuda" if torch.cuda.is_available() else "cpu"
@@ -22,7 +39,9 @@ class RecognitionConfig:
     cache_dir: Optional[str] = None
 
 
-# Cached objects (loaded once per process)
+# Cached objects (loaded once per process).
+# This is a big runtime win: we label the dataset in many batches, so reloading the
+# model each call would dominate runtime.
 _MODEL: Optional[torch.nn.Module] = None
 _PREPROCESS = None
 _TOKENIZER = None
@@ -31,7 +50,10 @@ _LOADED_CFG: Optional[RecognitionConfig] = None
 
 def ensure_pil(img: Any) -> Image.Image:
     """
-    Ensures the image is a PIL Image (MedMNIST may return PIL / numpy / tensor).
+    Convert an input image to PIL.Image.
+
+    MedMNIST can return different types depending on how it is accessed
+    (PIL, numpy arrays, or torch tensors). BiomedCLIP's preprocess expects PIL.
     """
     if isinstance(img, Image.Image):
         return img
@@ -42,8 +64,10 @@ def ensure_pil(img: Any) -> Image.Image:
 
 def _load_model(cfg: RecognitionConfig):
     """
-    Loads BiomedCLIP + preprocess + tokenizer once and reuses them across batches.
-    If cfg changes (e.g., device), it reloads to avoid silent mismatches.
+    Load BiomedCLIP + preprocess + tokenizer once and reuse them across batches.
+
+    If the config changes (e.g., device), we reload to avoid subtle mismatches
+    such as a CPU model being used with CUDA tensors.
     """
     global _MODEL, _PREPROCESS, _TOKENIZER, _LOADED_CFG
 
@@ -71,16 +95,18 @@ def predict_labels(
     cfg: RecognitionConfig,
 ) -> Tuple[List[str], np.ndarray]:
     """
-    Assigns the most semantically similar prompt to each image using BiomedCLIP.
+    Assign the most semantically similar prompt to each image (zero-shot).
 
-    Args:
-        images: list of raw images (PIL / numpy / tensor)
-        prompts: candidate textual prompts (one per class)
-        cfg: inference configuration
+    We:
+    1) preprocess images using the model's preprocessing pipeline,
+    2) tokenize prompts,
+    3) compute normalized embeddings,
+    4) convert similarities into probabilities via softmax,
+    5) pick the argmax prompt as auto_label and its probability as confidence.
 
     Returns:
-        auto_labels: selected prompt per image
-        confidence_scores: softmax confidence of the selected prompt
+        auto_labels: selected prompt per image (one prompt per sample)
+        confidence_scores: softmax confidence for the selected prompt
     """
     if len(images) == 0:
         return [], np.array([], dtype=np.float32)
@@ -89,19 +115,23 @@ def predict_labels(
 
     model, preprocess, tokenizer = _load_model(cfg)
 
-    # Preprocess images and stack into a batch tensor [B, 3, 224, 224]
+    # Preprocess images and stack into a batch tensor [B, 3, 224, 224].
+    # We intentionally rely on BiomedCLIP's preprocess to match training-time normalization.
     pil_images = [ensure_pil(img) for img in images]
     image_tensor = torch.stack([preprocess(img) for img in pil_images]).to(cfg.device)
 
-    # Tokenize prompts (BiomedCLIP uses context_length=256)
+    # Tokenize prompts. BiomedCLIP expects context_length=256 (from the model card).
     text_tokens = tokenizer(list(prompts), context_length=cfg.context_length).to(cfg.device)
 
-    # Forward pass: features + logit_scale (as in the model card)
+    # Forward pass: returns embeddings for both modalities and the model's learned logit scale.
     image_features, text_features, logit_scale = model(image_tensor, text_tokens)
 
+    # L2-normalization makes the dot product equivalent to cosine similarity,
+    # which is the standard CLIP retrieval setup.
     image_features = image_features / image_features.norm(dim=-1, keepdim=True)
     text_features = text_features / text_features.norm(dim=-1, keepdim=True)
 
+    # Similarity -> probabilities. logit_scale calibrates the sharpness of the softmax.
     probs = (logit_scale * (image_features @ text_features.T)).softmax(dim=-1)
 
     best_idx = torch.argmax(probs, dim=-1)
